@@ -9,6 +9,7 @@ const ThemeToggle = () => {
 
   useEffect(() => {
     const body = document.body;
+
     isDarkMode
       ? body.classList.add("dark-mode")
       : body.classList.remove("dark-mode");
