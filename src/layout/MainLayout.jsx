@@ -1,9 +1,9 @@
-import Home from "../page/Home/Home";
+import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
     <div>
-      <Home />
+      <Outlet />
     </div>
   );
 };

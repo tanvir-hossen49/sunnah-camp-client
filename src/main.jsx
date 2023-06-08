@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import router from "./Routes/router";
+import { RouterProvider } from "react-router-dom";
 import "./index.css";
-import MainLayout from "./layout/MainLayout";
 import ThemeToggle from "./utility/ThemeToggle";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <h2>golam aziz tanvir</h2>
-    <MainLayout></MainLayout>
+    <RouterProvider router={router} />
     <ThemeToggle />
   </React.StrictMode>
 );
