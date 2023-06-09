@@ -1,24 +1,17 @@
 import { useForm } from "react-hook-form";
-import { ArrowRight } from "lucide-react";
 import SocialLogin from "../../components/SocialLogin";
-import useAuth from "../Hook/useAuth";
-import ShowToast from "../../utility/ShowToast";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const SignIn = () => {
-  const { register, handleSubmit } = useForm();
-  const { createUser } = useAuth();
+const SignUp = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   const onSubmit = async data => {
     const { email, password } = data;
-
-    try {
-      const user = await createUser(email, password);
-      ShowToast("success", "user login successful");
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -40,15 +33,16 @@ const SignIn = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-bold leading-tight ">
-            Sign in to your account
+            Sign up to create account
           </h2>
           <p className="mt-2text-sm  ">
-            Don&apos;t have an account?
+            Already have an account?
             <Link
-             to='/signup'
+              to="/signin"
+              title=""
               className="font-semibold transition-all duration-200 hover:underline"
             >
-              Create a free account
+              Sign In
             </Link>
           </p>
           <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
@@ -78,8 +72,16 @@ const SignIn = () => {
                     type="password"
                     placeholder="Password"
                     required
-                    {...register("password")}
+                    {...register("password", {
+                      pattern: /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/,
+                    })}
                   ></input>
+                  {errors.password && (
+                    <p role="alert" className="text-xs mt-2 text-red-400">
+                      password should be 6 character, one uppercase and one
+                      special character
+                    </p>
+                  )}
                 </div>
               </div>
               {/* SIGN IN BUTTON */}
@@ -101,4 +103,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
