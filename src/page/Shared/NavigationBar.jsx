@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import ThemeToggle from "../../utility/ThemeToggle";
 import ShowToast from "../../utility/ShowToast";
+import { Menu } from "lucide-react";
 
 const NavigationBar = () => {
   const { user, logout } = useAuth();
@@ -63,24 +64,11 @@ const NavigationBar = () => {
       <div>
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+            <Menu />
           </label>
           <ul
             tabIndex={0}
-            className="menu uppercase menu-compact dropdown-content  mt-3 p-2 shadow  rounded-box w-52  font-extrabold nav-item border"
+            className="menu z-10 uppercase menu-compact dropdown-content  mt-3 p-2 shadow  rounded-box w-52  font-extrabold nav-item border"
           >
             {navOptions}
           </ul>

@@ -27,10 +27,20 @@ body {
   color: var(--foreground);
   min-height: 100vh;
   max-width: 1400px;
+  margin: 0 auto;
   width: 100vw;
   overflow-x: hidden;
 }
 
-.nav-item {
+.mySwiper .swiper-button-next {
+  right: 35px;
+  left: auto;
+}
+.mySwiper .swiper-button-prev {
+  right: auto;
+  left: 30px;
+}
+
+nav .nav-item {
   background-color: var(--background);
 }
