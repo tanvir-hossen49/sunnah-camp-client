@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import SocialLogin from "../../components/SocialLogin";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import ShowToast from "../../utility/ShowToast";
+import useAuth from "../Hook/useAuth";
 
 const SignUp = () => {
   const {
@@ -9,9 +11,21 @@ const SignUp = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-
+  const { createUser, updateUserProfile } = useAuth();
   const onSubmit = async data => {
-    const { email, password } = data;
+    const { email, password, confirmPassword, photoURL } = data;
+    if (password !== confirmPassword) {
+      ShowToast("error", "password not match");
+      return;
+    }
+
+    try {
+      const { user } = await createUser(email, password);
+      await updateUserProfile(user, user.displayName, photoURL);
+      ShowToast("success", "user create successful");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -84,6 +98,39 @@ const SignUp = () => {
                   )}
                 </div>
               </div>
+
+              {/* CONFIRM PASSWORD */}
+              <div>
+                <div>
+                  <label className="text-base font-medium ">
+                    Confirm Password
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="password"
+                    placeholder="Password"
+                    required
+                    {...register("confirmPassword")}
+                  ></input>
+                </div>
+              </div>
+
+              {/* PHOTO URL */}
+              <div>
+                <label className="text-base font-medium ">Photo URL</label>
+                <div className="mt-2">
+                  <input
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="url"
+                    placeholder="Photo URL"
+                    required
+                    {...register("photoURL")}
+                  ></input>
+                </div>
+              </div>
+
               {/* SIGN IN BUTTON */}
               <div>
                 <button
