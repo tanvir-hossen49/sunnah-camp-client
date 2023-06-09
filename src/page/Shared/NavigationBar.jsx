@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import ThemeToggle from "../../utility/ThemeToggle";
+import ShowToast from "../../utility/ShowToast";
 
 const NavigationBar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+
+  const handleLogOut = () => {
+    logout().then(() => {
+      ShowToast("success", "logout successfull");
+    });
+  };
 
   const navOptions = (
     <>
       <li>
-        <Link to="/">HOME</Link>
+        <Link to="/">home</Link>
       </li>
       <li>
         <Link to="/instructors">Instructors</Link>
@@ -16,15 +23,16 @@ const NavigationBar = () => {
       <li>
         <Link to="/classes">Classes</Link>
       </li>
-      <li>
-        <Link to="/order/salads">ORDER FOOD</Link>
-      </li>
 
       {user ? (
         <>
           <li>
+            <Link to="/dashboard">dashboard</Link>
+          </li>
+          <li>
             <button
               type="button"
+              onClick={handleLogOut}
               className="rounded-md border px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Sign out
@@ -40,7 +48,7 @@ const NavigationBar = () => {
         </>
       ) : (
         <li>
-          <Link to="/login">LOGIN</Link>
+          <Link to="/signin">LOGIN</Link>
         </li>
       )}
 
