@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(222.2 47.4% 11.2%);
@@ -24,6 +28,7 @@ body {
   min-height: 100vh;
   max-width: 1400px;
   width: 100vw;
+  overflow-x: hidden;
 }
 
 .nav-item {

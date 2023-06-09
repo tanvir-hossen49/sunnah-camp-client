@@ -1,11 +1,25 @@
 import { Github } from "lucide-react";
+import useAuth from "../page/Hook/useAuth";
+import ShowToast from "../utility/ShowToast";
+import { useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
+  const { googleLogin } = useAuth();
+  const navigate = useNavigate();
+
+  const handleGoogleLogIn = () => {
+    googleLogin().then(() => {
+      ShowToast("success", "login successful");
+      navigate("/");
+    });
+  };
+
   return (
     <div className="mt-3 space-y-3">
       {/* GOOGLE LOGIN BUTTON */}
       <button
         type="button"
+        onClick={handleGoogleLogIn}
         className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400  px-3.5 py-2.5 font-semibold  transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
       >
         <span className="mr-2 inline-block">
@@ -20,6 +34,7 @@ const SocialLogin = () => {
         </span>
         Sign in with Google
       </button>
+      {/* TODO */}
       {/* GITHUB LOGIN BUTTON */}
       <button
         type="button"

@@ -12,8 +12,9 @@ const SignUp = () => {
     handleSubmit,
   } = useForm();
   const { createUser, updateUserProfile } = useAuth();
+
   const onSubmit = async data => {
-    const { email, password, confirmPassword, photoURL } = data;
+    const { email, password, confirmPassword, photoURL, name } = data;
     if (password !== confirmPassword) {
       ShowToast("error", "password not match");
       return;
@@ -21,7 +22,7 @@ const SignUp = () => {
 
     try {
       const { user } = await createUser(email, password);
-      await updateUserProfile(user, user.displayName, photoURL);
+      await updateUserProfile(user, name, photoURL);
       ShowToast("success", "user create successful");
     } catch (error) {
       console.log(error);
@@ -61,6 +62,20 @@ const SignUp = () => {
           </p>
           <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
             <div className="space-y-5">
+              {/* NAME */}
+              <div>
+                <label className="text-base font-medium ">Name</label>
+                <div className="mt-2">
+                  <input
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="text"
+                    placeholder="name"
+                    required
+                    {...register("name")}
+                  ></input>
+                </div>
+              </div>
+
               {/* EMAIL */}
               <div>
                 <label className="text-base font-medium ">Email address</label>
@@ -137,7 +152,7 @@ const SignUp = () => {
                   type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md border px-3.5 py-2.5 font-semibold leading-7"
                 >
-                  Get started <ArrowRight className="ml-2" size={16} />
+                  Sign Up <ArrowRight className="ml-2" size={16} />
                 </button>
               </div>
             </div>
