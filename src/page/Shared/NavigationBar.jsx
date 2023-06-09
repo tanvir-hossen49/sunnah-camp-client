@@ -1,34 +1,47 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import ThemeToggle from "../../utility/ThemeToggle";
 import ShowToast from "../../utility/ShowToast";
 import { Menu } from "lucide-react";
+import Swal from "sweetalert2";
 
 const NavigationBar = () => {
   const { user, logout } = useAuth();
 
   const handleLogOut = () => {
-    logout().then(() => {
-      ShowToast("success", "logout successfull");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to log out",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(result => {
+      if (result.isConfirmed) {
+        logout().then(() => {
+          ShowToast("success", "logout successfull");
+        });
+      }
     });
   };
 
   const navOptions = (
     <>
       <li>
-        <Link to="/">home</Link>
+        <NavLink to="/">home</NavLink>
       </li>
       <li>
-        <Link to="/instructors">Instructors</Link>
+        <NavLink to="/instructors">Instructors</NavLink>
       </li>
       <li>
-        <Link to="/classes">Classes</Link>
+        <NavLink to="/classes">Classes</NavLink>
       </li>
 
       {user ? (
         <>
           <li>
-            <Link to="/dashboard">dashboard</Link>
+            <NavLink to="/dashboard">dashboard</NavLink>
           </li>
           <li>
             <button
@@ -49,7 +62,7 @@ const NavigationBar = () => {
         </>
       ) : (
         <li>
-          <Link to="/signin">LOGIN</Link>
+          <NavLink to="/signin">LOGIN</NavLink>
         </li>
       )}
 
@@ -68,7 +81,7 @@ const NavigationBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu z-10 uppercase menu-compact dropdown-content  mt-3 p-2 shadow  rounded-box w-52  font-extrabold nav-item border"
+            className="menu  uppercase menu-compact dropdown-content  mt-3 p-2 shadow  rounded-box w-52  font-extrabold nav-item border"
           >
             {navOptions}
           </ul>

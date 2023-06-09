@@ -31,7 +31,17 @@ body {
   width: 100vw;
   overflow-x: hidden;
 }
-
+body.dark-mode .active {
+  background-color: hsl(0 0% 100%);
+  color: hsl(222.2 47.4% 11.2%);
+}
+nav {
+  position: relative;
+  z-index: 999;
+}
+.active {
+  color: hsl(213 31% 91%);
+}
 .mySwiper .swiper-button-next {
   right: 35px;
   left: auto;
