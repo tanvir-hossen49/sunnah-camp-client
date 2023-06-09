@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { ArrowRight } from "lucide-react";
 import SocialLogin from "../../components/SocialLogin";
+import useAuth from "../Hook/useAuth";
 
 const SignIn = () => {
   const {
@@ -8,7 +9,19 @@ const SignIn = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = data => console.log(data);
+  const { createUser } = useAuth();
+
+  const onSubmit = async data => {
+    const { email, password } = data;
+
+    try {
+      const user = await createUser(email, password);
+      
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="rounded-md p-2">
