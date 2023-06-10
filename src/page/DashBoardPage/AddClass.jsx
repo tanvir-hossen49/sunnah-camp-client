@@ -77,8 +77,8 @@ const AddClass = () => {
               required
               value={user?.email}
               readOnly
-              placeholder="Recipe name"
-              {...register("name")}
+              placeholder="email name"
+              {...register("email")}
               className="input input-bordered"
             />
           </div>

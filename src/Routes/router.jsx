@@ -6,6 +6,7 @@ import SignUp from "../page/SignUp/SignUp";
 import DashboardLayout from "../layout/DashboardLayout";
 import PrivateRoutes from "./PrivateRoutes";
 import AddClass from "../page/DashBoardPage/AddClass";
+import MyClasses from "../page/DashBoardPage/MyClasses";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "add-a-class",
         element: <AddClass />,
+      },
+      {
+        path: "my-classes",
+        element: <MyClasses />,
       },
     ],
   },
