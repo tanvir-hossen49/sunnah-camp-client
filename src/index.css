@@ -3,7 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
@@ -50,7 +52,12 @@ nav {
   right: auto;
   left: 30px;
 }
-
+body.dark-mode .input {
+  background-color: var(--background);
+}
+.input {
+  background-color: var(--background);
+}
 nav .nav-item {
   background-color: var(--background);
 }

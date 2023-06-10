@@ -18,9 +18,7 @@ const ThemeToggle = () => {
   }, [isDarkMode]);
 
   return (
-    <button className="ml-3" onClick={toggleMode}>
-      {isDarkMode ? <SunMoon /> : <Moon />}
-    </button>
+    <button onClick={toggleMode}>{isDarkMode ? <SunMoon /> : <Moon />}</button>
   );
 };
 

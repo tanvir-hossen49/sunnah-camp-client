@@ -2,15 +2,30 @@ import { Github } from "lucide-react";
 import useAuth from "../page/Hook/useAuth";
 import ShowToast from "../utility/ShowToast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SocialLogin = () => {
   const { googleLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleLogIn = () => {
-    googleLogin().then(() => {
-      ShowToast("success", "login successful");
-      navigate("/");
+    googleLogin().then(async result => {
+      const { displayName: name, email } = result.user;
+
+      try {
+        const savedUser = { name, email };
+        const response = await axios.post(
+          "http://localhost:3001/users",
+          savedUser
+        );
+        const data = response.data;
+        if (data.insertedId) {
+          ShowToast("success", "user profile updated");
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     });
   };
 

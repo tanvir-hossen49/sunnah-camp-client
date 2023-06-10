@@ -53,12 +53,13 @@ const NavigationBar = () => {
             </button>
           </li>
 
-          <img
-            className="w-12 h-12 rounded-full ml-3"
-            src={user.photoURL}
-            alt=""
-            title={user.displayName}
-          />
+          <li>
+            <div className="avatar">
+              <div className="w-12 rounded-full">
+                <img src={user.photoURL} title={user.displayName} />
+              </div>
+            </div>
+          </li>
         </>
       ) : (
         <li>

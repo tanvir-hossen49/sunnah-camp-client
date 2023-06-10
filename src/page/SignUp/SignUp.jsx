@@ -1,20 +1,23 @@
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../components/SocialLogin";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import ShowToast from "../../utility/ShowToast";
 import useAuth from "../Hook/useAuth";
+import axios from "axios";
 
 const SignUp = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
   const { createUser, updateUserProfile } = useAuth();
 
   const onSubmit = async data => {
     const { email, password, confirmPassword, photoURL, name } = data;
+
     if (password !== confirmPassword) {
       ShowToast("error", "password not match");
       return;
@@ -23,7 +26,20 @@ const SignUp = () => {
     try {
       const { user } = await createUser(email, password);
       await updateUserProfile(user, name, photoURL);
-      ShowToast("success", "user create successful");
+
+      const savedUser = { name, email };
+
+      const response = await axios.post(
+        "http://localhost:3001/users",
+        savedUser
+      );
+      const data = response.data;
+
+      if (data.insertedId) {
+        reset();
+        ShowToast("success", "user profile updated");
+        Navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }

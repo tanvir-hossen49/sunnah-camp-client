@@ -22,7 +22,7 @@ const Slider = () => {
           <div className="w-full h-full flex  ml-16 items-center text-white">
             <div className="md:w-1/2 w-3/4 text-justify">
               <p className="text-base uppercase">All about hajj</p>
-              <h2 className="lg:text-5xl font-bold mt-2">
+              <h2 className="lg:text-5xl md:text-3xl text-2xl font-bold mt-2">
                 JOURNEY OF THE HEARTS
               </h2>
               <p className="my-5">
