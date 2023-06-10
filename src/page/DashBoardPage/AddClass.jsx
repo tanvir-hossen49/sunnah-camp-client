@@ -2,19 +2,55 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
 import useAuth from "../Hook/useAuth";
 import { Send } from "lucide-react";
+import axios from "axios";
+import ShowToast from "../../utility/ShowToast";
+
+const IMAGE_HOSTING_TOKEN = import.meta.env.VITE_Image_Upload_Token;
 
 const AddClass = () => {
   const { user } = useAuth();
-  const { register } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = async data => {
+    const image_hosting_url = `https://api.imgbb.com/1/upload?key=${IMAGE_HOSTING_TOKEN}`;
+
+    try {
+      const formData = new FormData();
+      formData.append("image", data.image[0]);
+
+      const imageBBresponse = await fetch(image_hosting_url, {
+        method: "POST",
+        body: formData,
+      });
+      const imageBB = await imageBBresponse.json();
+
+      if (imageBB.success) {
+        const imageURL = imageBB.data.display_url;
+        data.image = imageURL;
+        data.price = parseFloat(data.price);
+
+        const response = await axios.post(
+          "http://localhost:3001/classes",
+          data
+        );
+        if (response.data.insertedId) {
+          reset();
+          ShowToast("success", "inserted successful");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full p-8 ">
       <SectionTitle title="Add Class" />
       <form
-        // onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="space-y-5 p-8 rounded-lg"
       >
-        <div className="flex gap-5">
+        <div className="md:flex  gap-5 space-y-5 md:space-y-0">
           {/*INSTRUCTOR NAME */}
           <div className="form-control flex-1">
             <label className="label">
@@ -48,7 +84,7 @@ const AddClass = () => {
           </div>
         </div>
 
-        <div className="flex  gap-5">
+        <div className="md:flex  gap-5 space-y-5 md:space-y-0">
           {/* CLASS NAME */}
           <div className="form-control flex-1">
             <label className="label">
@@ -76,8 +112,8 @@ const AddClass = () => {
           </div>
         </div>
 
-        <div className="flex gap-5">
-          {/*PRICE */}
+        <div className="md:flex gap-5 space-y-5 md:space-y-0">
+          {/* PRICE */}
           <div className="form-control flex-1">
             <label className="label">
               <span className="text-base font-semibold ">Price*</span>
@@ -91,7 +127,7 @@ const AddClass = () => {
             />
           </div>
 
-          {/*SEATS*/}
+          {/* SEATS */}
           <div className="form-control flex-1">
             <label className="label">
               <span className="text-base font-semibold ">Seats*</span>
@@ -110,7 +146,7 @@ const AddClass = () => {
         <div className="form-control">
           <button
             type="submit"
-            className="btn btn-primary  w-1/2 mx-auto border-none outline-none "
+            className="btn btn-primary  md:w-1/2 w-full mx-auto border-none outline-none "
           >
             Add Item
             <Send className="ml-3" />

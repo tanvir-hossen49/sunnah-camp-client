@@ -9,17 +9,17 @@ const DashboardLayout = () => {
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col items-center justify-center">
-        {<Outlet />}
+        <Outlet />
         <label
           htmlFor="my-drawer-2"
-          className="btn btn-circle btn-outline lg:hidden mt-5"
+          className="btn btn-circle btn-outline lg:hidden my-10"
         >
           Open
         </label>
       </div>
       <div className="drawer-side border-r ">
-        <label htmlFor="my-drawer-2" className="drawer-overlay bg-none"></label>
-        <ul className="menu p-4 w-80 h-full md:text-2xl text-lg uppercase">
+        <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+        <ul className="menu p-4 md:w-80 w-60 h-full md:text-2xl text-base uppercase">
           {isAdmin ? (
             <>
               <li>
