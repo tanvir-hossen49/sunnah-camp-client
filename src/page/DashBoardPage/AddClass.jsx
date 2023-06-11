@@ -28,6 +28,8 @@ const AddClass = () => {
         const imageURL = imageBB.data.display_url;
         data.image = imageURL;
         data.price = parseFloat(data.price);
+        data.seats = parseFloat(data.seats);
+        data.status = "pending";
 
         const response = await axios.post(
           "http://localhost:3001/classes",

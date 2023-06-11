@@ -7,6 +7,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import PrivateRoutes from "./PrivateRoutes";
 import AddClass from "../page/DashBoardPage/AddClass";
 import MyClasses from "../page/DashBoardPage/MyClasses";
+import ManageClasses from "../page/DashBoardPage/ManageClasses";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      {
+        path: "manage-classes",
+        element: <ManageClasses />,
+      },
       {
         path: "add-a-class",
         element: <AddClass />,

@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "../Firebase/Firebase";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -57,8 +58,19 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setLoading(false);
       setUser(currentUser);
+
+      if (currentUser) {
+        axios
+          .post("http://localhost:3001/jwt", { email: currentUser.email })
+          .then(data => {
+            localStorage.setItem("summer-camp-token", data.data.token);
+            setLoading(false);
+          });
+      } else {
+        localStorage.removeItem("summer-camp-token");
+        setLoading(false);
+      }
     });
     return () => unsubscribe();
   }, []);

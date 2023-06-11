@@ -7,7 +7,7 @@ import { Edit2 } from "lucide-react";
 const MyClasses = () => {
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
-  const status = "pending";
+
   useEffect(() => {
     axios(`http://localhost:3001/classes?email=${user?.email}`).then(
       response => {
@@ -48,20 +48,22 @@ const MyClasses = () => {
                   </div>
                 </td>
                 <td>{myClass.className}</td>
-                <td>{myClass.price}</td>
+                <td>${myClass.price}</td>
                 <td>{myClass.seats}</td>
                 <td>0</td>
                 <td>
                   <span
                     className={` ${
-                      status === "pending" && "bg-yellow-300  text-gray-800"
+                      myClass.status === "pending" &&
+                      "bg-yellow-300  text-gray-800"
                     }  ${
-                      status === "approved" && "bg-green-300  text-gray-800"
+                      myClass.status === "approve" &&
+                      "bg-green-300  text-gray-800"
                     }  ${
-                      status === "denied" && "bg-red-600 text-white"
+                      myClass.status === "denied" && "bg-red-600 text-white"
                     } p-2 rounded-lg`}
                   >
-                    pending
+                    {myClass.status}
                   </span>
                 </td>
                 <td>
