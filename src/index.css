@@ -7,6 +7,7 @@
 *::after,
 *::before {
   box-sizing: border-box;
+  /* outline: 1px solid limegreen; */
 }
 
 :root {
@@ -30,9 +31,10 @@ body {
   min-height: 100vh;
   max-width: 1400px;
   margin: 0 auto;
-  width: 100vw;
-  overflow-x: hidden;
+  width: 100%;
+  /* overflow-x: hidden; */
 }
+
 body.dark-mode .active {
   background-color: hsl(0 0% 100%);
   color: hsl(222.2 47.4% 11.2%);
@@ -87,4 +89,16 @@ nav .nav-item {
 .modal-box {
   background-color: var(--background);
   color: var(--foreground) !important;
+}
+.rti--container {
+  background-color: var(--background) !important;
+}
+.rti--tag {
+  background-color: var(--background) !important;
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.rti--input {
+  background-color: transparent;
+  color: var(--foreground);
 }

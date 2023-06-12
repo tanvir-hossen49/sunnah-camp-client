@@ -47,7 +47,9 @@ const DashboardLayout = () => {
             {role === "admin" ? (
               <>
                 <li>
-                  <NavLink to="/dashboard/manage-classes">Manage Classes</NavLink>
+                  <NavLink to="/dashboard/manage-classes">
+                    Manage Classes
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink to="/my-enrolled-class">Manage Users</NavLink>
@@ -60,6 +62,9 @@ const DashboardLayout = () => {
                 </li>
                 <li>
                   <NavLink to="/dashboard/my-classes">My Classes</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/add-instructor">Update Info</NavLink>
                 </li>
               </>
             ) : (

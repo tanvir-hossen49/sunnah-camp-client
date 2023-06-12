@@ -8,6 +8,8 @@ import PrivateRoutes from "./PrivateRoutes";
 import AddClass from "../page/DashBoardPage/AddClass";
 import MyClasses from "../page/DashBoardPage/MyClasses";
 import ManageClasses from "../page/DashBoardPage/ManageClasses";
+import Instructors from "../page/Instructors/Instructors";
+import AddInstructor from "../page/DashBoardPage/AddInstructor";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,11 @@ const router = createBrowserRouter([
         path: "signup",
         element: <SignUp />,
       },
+      {
+        path: "instructors",
+        element: <Instructors />,
+        loader: () => fetch("http://localhost:3001/instructors"),
+      },
     ],
   },
   {
@@ -36,10 +43,12 @@ const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      // admin routes
       {
         path: "manage-classes",
         element: <ManageClasses />,
       },
+      //instructor routes
       {
         path: "add-a-class",
         element: <AddClass />,
@@ -47,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "my-classes",
         element: <MyClasses />,
+      },
+      {
+        path: "add-instructor",
+        element: <AddInstructor />,
       },
     ],
   },

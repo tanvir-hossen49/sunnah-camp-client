@@ -74,7 +74,7 @@ const NavigationBar = () => {
   );
 
   return (
-    <nav className="navbar px-8 border-b justify-between backdrop-blur-sm ">
+    <nav className="navbar mb-10 px-8 border-b justify-between backdrop-blur-sm ">
       <div>
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
