@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
 import useAuth from "../Hook/useAuth";
-import { Edit2 } from "lucide-react";
+import { Edit2, X } from "lucide-react";
 
 const MyClasses = () => {
   const { user } = useAuth();
@@ -15,6 +15,7 @@ const MyClasses = () => {
       }
     );
   }, [user?.email]);
+
   return (
     <div className="w-full p-8">
       <SectionTitle title="my classes" />
@@ -67,12 +68,108 @@ const MyClasses = () => {
                   </span>
                 </td>
                 <td>
-                  <button className="btn btn-sm">show </button>
+                  {myClass?.feedback ? (
+                    <button className="btn btn-sm">show </button>
+                  ) : (
+                    "no feedback"
+                  )}
                 </td>
                 <td>
-                  <button className="btn btn-circle ">
+                  <label htmlFor="my_modal_7" className="btn btn-circle">
                     <Edit2 />
-                  </button>
+                  </label>
+
+                  {/* Put this part before </body> tag */}
+                  <input
+                    type="checkbox"
+                    id="my_modal_7"
+                    className="modal-toggle"
+                  />
+                  <div className="modal">
+                    <div className="modal-box">
+                      <form>
+                        <div className="md:flex  gap-5 space-y-5 md:space-y-0">
+                          {/* CLASS NAME */}
+                          <div className="form-control">
+                            <label className="label">
+                              <span className="text-base font-semibold">
+                                Class Name
+                              </span>
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              placeholder="class name"
+                              className="input input-bordered"
+                            />
+                          </div>
+                          <div className="form-control">
+                            <label className="label">
+                              <span className="text-base font-semibold">
+                                Class Name
+                              </span>
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              placeholder="class name"
+                              className="input input-bordered"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="md:flex gap-5 space-y-5 md:space-y-0">
+                          {/* PRICE */}
+                          <div className="form-control ">
+                            <label className="label">
+                              <span className="text-base font-semibold ">
+                                Price*
+                              </span>
+                            </label>
+                            <input
+                              type="number"
+                              required
+                              placeholder="price"
+                              className="input input-bordered"
+                            />
+                          </div>
+
+                          {/* SEATS */}
+                          <div className="">
+                            <label className="label">
+                              <span className="text-base font-semibold ">
+                                Seats*
+                              </span>
+                            </label>
+                            <input
+                              type="number"
+                              required
+                              placeholder="available seats"
+                              className="input input-bordered"
+                            />
+                          </div>
+                        </div>
+
+                        {/* ADD ITEM BUTTON */}
+                        <div className="form-control">
+                          <button
+                            type="submit"
+                            className="btn btn-primary mt-5 md:w-1/2 w-full mx-auto border-none outline-none "
+                          >
+                            Add Item
+                            {/* <Send className="ml-3" /> */}
+                          </button>
+                        </div>
+                      </form>
+
+                      <label
+                        className="absolute top-2 z-20 right-2 modal-backdrop btn btn-circle w-12 p-0 rounded-full border-none outline-none  text-white ml-auto "
+                        htmlFor="my_modal_7"
+                      >
+                        <X />
+                      </label>
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}

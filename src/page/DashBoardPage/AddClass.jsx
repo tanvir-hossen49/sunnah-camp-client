@@ -81,7 +81,7 @@ const AddClass = () => {
               readOnly
               placeholder="email name"
               {...register("email")}
-              className="input input-bordered"
+              className="input input-bordered "
             />
           </div>
         </div>

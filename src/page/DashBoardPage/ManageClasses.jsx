@@ -2,16 +2,21 @@ import axios from "axios";
 import SectionTitle from "../../components/SectionTitle";
 import { useEffect, useState } from "react";
 import useAuth from "../Hook/useAuth";
+import ShowToast from "../../utility/ShowToast";
 
 const ManageClasses = () => {
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
 
   const handleApproved = async id => {
-    const response = await axios.patch(`http://localhost:3001/classes/${id} `, {
-      status: "approve",
-    });
-    console.log(response);
+    try {
+      await axios.patch(`http://localhost:3001/classes/${id} `, {
+        status: "approve",
+      });
+      ShowToast("success", "status updated");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
