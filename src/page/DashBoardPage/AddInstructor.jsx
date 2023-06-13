@@ -27,6 +27,9 @@ const AddInstructor = () => {
           { category: data.category, classes: selected }
         );
         console.log(response.data);
+        if (response.data.modifiedCount > 0) {
+          ShowToast("success", "updated successful");
+        }
       } else {
         const formData = new FormData();
         formData.append("image", data.image[0]);

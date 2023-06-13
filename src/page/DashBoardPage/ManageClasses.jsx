@@ -8,19 +8,20 @@ const ManageClasses = () => {
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
 
-  const handleApproved = async id => {
+  const handleApproved = async (event, id) => {
     try {
       await axios.patch(`http://localhost:3001/classes/${id} `, {
         status: "approve",
       });
       ShowToast("success", "status updated");
+      event.target.setAttribute("disabled", "disabled");
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    axios("http://localhost:3001/all-classes").then(response => {
+    axios("http://localhost:3001/admin/all-classes").then(response => {
       setClasses(response.data);
     });
   }, [user?.email]);
@@ -65,21 +66,22 @@ const ManageClasses = () => {
                 <td>
                   <span
                     className={` ${
-                      row.status === "pending" && "bg-yellow-300  text-gray-800"
-                    }  ${
-                      row.status === "approved" && "bg-green-300  text-gray-800"
-                    }  ${
-                      row.status === "denied" && "bg-red-600 text-white"
-                    } p-2 rounded-lg`}
+                      row.status === "pending"
+                        ? "bg-yellow-300  text-gray-800"
+                        : row.status === "approve"
+                        ? "bg-green-300  text-gray-800"
+                        : row.status === "denied" && "bg-red-600 text-white"
+                    }  p-2 rounded-lg`}
                   >
-                    pending
+                    {row.status}
                   </span>
                 </td>
 
                 <td className="space-y-4">
                   <button
-                    onClick={() => handleApproved(row._id)}
+                    onClick={event => handleApproved(event, row._id)}
                     className="btn w-full btn-primary"
+                    disabled={row.status === "approve"}
                   >
                     approved
                   </button>

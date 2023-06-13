@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="footer p-10 border-t mt-10">
+    <footer className="footer p-10 border-t">
       <div>
         <div className="flex items-center">
           <img src="/logo.png" alt="Website Logo" className="h-8 w-8 mr-2" />

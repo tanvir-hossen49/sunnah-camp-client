@@ -10,6 +10,7 @@ import MyClasses from "../page/DashBoardPage/MyClasses";
 import ManageClasses from "../page/DashBoardPage/ManageClasses";
 import Instructors from "../page/Instructors/Instructors";
 import AddInstructor from "../page/DashBoardPage/AddInstructor";
+import Classes from "../page/Classes/Classes";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,12 @@ const router = createBrowserRouter([
       {
         path: "instructors",
         element: <Instructors />,
-        loader: () => fetch("http://localhost:3001/instructors"),
+        loader: () => fetch("http://localhost:3001/all-instructors"),
+      },
+      {
+        path: "classes",
+        element: <Classes />,
+        loader: () => fetch("http://localhost:3001/user/all-classes"),
       },
     ],
   },
