@@ -8,10 +8,11 @@ import axios from "axios";
 const Classes = () => {
   const classes = useLoaderData();
   const [role, setRole] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState([]);
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleSelect = async (event, id) => {
+  const handleSelect = async (event, selectedCourse) => {
     if (!user?.email) {
       navigate("/signin");
       ShowToast("warn", "log in first");
@@ -19,7 +20,12 @@ const Classes = () => {
 
     try {
       const { data } = await axios.post("http://localhost:3001/add-course", {
-        courseId: id,
+        courseId: selectedCourse._id,
+        image: selectedCourse.image,
+        price: selectedCourse.price,
+        seat: selectedCourse.seats,
+        courseName: selectedCourse.className,
+        email: user?.email,
       });
       if (data.insertedId) {
         ShowToast("success", "course added");
@@ -33,12 +39,25 @@ const Classes = () => {
     }
   };
 
+  const isSelected = id => {
+    return selectedCourse.find(course => course.courseId === id);
+  };
+
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
         `http://localhost:3001/users/${user?.email}`
       );
       setRole(data.role);
+    })();
+  }, [user?.email]);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(
+        `http://localhost:3001/my-course/${user?.email}`
+      );
+      setSelectedCourse(data);
     })();
   }, [user?.email]);
 
@@ -61,9 +80,13 @@ const Classes = () => {
               </div>
               <div className="mt-2 text-right">
                 <button
-                  onClick={event => handleSelect(event, singleClass._id)}
+                  onClick={event => handleSelect(event, singleClass)}
                   className="btn btn-primary md:w-1/2 w-full"
-                  disabled={role === "admin" || role === "instructor"}
+                  disabled={
+                    role === "admin" ||
+                    role === "instructor" ||
+                    isSelected(singleClass._id)
+                  }
                 >
                   Select
                 </button>

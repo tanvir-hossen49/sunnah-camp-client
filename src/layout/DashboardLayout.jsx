@@ -70,7 +70,9 @@ const DashboardLayout = () => {
             ) : (
               <>
                 <li>
-                  <NavLink to="/my-selected-class">My Selected Classes</NavLink>
+                  <NavLink to="/dashboard/my-selected-course">
+                    My Selected Classes
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink to="/my-enrolled-class">My Enrolled Classes</NavLink>

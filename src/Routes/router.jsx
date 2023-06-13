@@ -11,6 +11,7 @@ import ManageClasses from "../page/DashBoardPage/ManageClasses";
 import Instructors from "../page/Instructors/Instructors";
 import AddInstructor from "../page/DashBoardPage/AddInstructor";
 import Classes from "../page/Classes/Classes";
+import MySelectedCourse from "../page/DashBoardPage/MySelectedCourse";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,11 @@ const router = createBrowserRouter([
       {
         path: "add-instructor",
         element: <AddInstructor />,
+      },
+      // user routes
+      {
+        path: "my-selected-course",
+        element: <MySelectedCourse />,
       },
     ],
   },
