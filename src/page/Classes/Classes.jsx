@@ -1,9 +1,47 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle";
+import { useEffect, useState } from "react";
+import useAuth from "../Hook/useAuth";
+import ShowToast from "../../utility/ShowToast";
+import axios from "axios";
 
 const Classes = () => {
   const classes = useLoaderData();
-  console.log(classes);
+  const [role, setRole] = useState("");
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSelect = async (event, id) => {
+    if (!user?.email) {
+      navigate("/signin");
+      ShowToast("warn", "log in first");
+    }
+
+    try {
+      const { data } = await axios.post("http://localhost:3001/add-course", {
+        courseId: id,
+      });
+      if (data.insertedId) {
+        ShowToast("success", "course added");
+        event.target.setAttribute("disabled", "disabled");
+      } else {
+        event.target.setAttribute("disabled", "disabled");
+        ShowToast("error", data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(
+        `http://localhost:3001/users/${user?.email}`
+      );
+      setRole(data.role);
+    })();
+  }, [user?.email]);
+
   return (
     <div className="my-8 mx-10">
       <SectionTitle title="All Classes" />
@@ -22,7 +60,11 @@ const Classes = () => {
                 <p>Seat: {singleClass.seats}</p>
               </div>
               <div className="mt-2 text-right">
-                <button className="btn btn-primary md:w-1/2 w-full">
+                <button
+                  onClick={event => handleSelect(event, singleClass._id)}
+                  className="btn btn-primary md:w-1/2 w-full"
+                  disabled={role === "admin" || role === "instructor"}
+                >
                   Select
                 </button>
               </div>
