@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import SocialLogin from "../../components/SocialLogin";
 import useAuth from "../Hook/useAuth";
 import ShowToast from "../../utility/ShowToast";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
+  const [isShow, setIsShow] = useState(false);
   const { signin } = useAuth();
   const navigate = useNavigate();
 
@@ -76,14 +78,20 @@ const SignIn = () => {
                 <div>
                   <label className="text-base font-medium ">Password</label>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 relative border">
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="password"
+                    type={isShow ? "text" : "password"}
                     placeholder="Password"
                     required
                     {...register("password")}
                   ></input>
+                  <div
+                    className="absolute  top-2/4 -translate-y-2/4 right-2"
+                    onClick={() => setIsShow(!isShow)}
+                  >
+                    {isShow ? <Eye /> : <EyeOff />}
+                  </div>
                 </div>
               </div>
               {/* SIGN IN BUTTON */}

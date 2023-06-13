@@ -1,18 +1,16 @@
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../components/SocialLogin";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import { Link, Navigate } from "react-router-dom";
 import ShowToast from "../../utility/ShowToast";
 import useAuth from "../Hook/useAuth";
 import axios from "axios";
+import { useState } from "react";
 
 const SignUp = () => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
+  const [isShow, setIsShow] = useState(false);
+  const [isShowConfirmPassword, setIShowConfirmPassword] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
   const { createUser, updateUserProfile } = useAuth();
 
   const onSubmit = async data => {
@@ -111,22 +109,20 @@ const SignUp = () => {
                 <div>
                   <label className="text-base font-medium ">Password</label>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 relative border">
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="password"
+                    type={isShow ? "text" : "password"}
                     placeholder="Password"
                     required
-                    {...register("password", {
-                      pattern: /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/,
-                    })}
+                    {...register("password")}
                   ></input>
-                  {errors.password && (
-                    <p role="alert" className="text-xs mt-2 text-red-400">
-                      password should be 6 character, one uppercase and one
-                      special character
-                    </p>
-                  )}
+                  <div
+                    className="absolute  top-2/4 -translate-y-2/4 right-2"
+                    onClick={() => setIsShow(!isShow)}
+                  >
+                    {isShow ? <Eye /> : <EyeOff />}
+                  </div>
                 </div>
               </div>
 
@@ -137,14 +133,22 @@ const SignUp = () => {
                     Confirm Password
                   </label>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 relative border">
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="password"
-                    placeholder="Password"
+                    type={isShowConfirmPassword ? "text" : "password"}
+                    placeholder="confirmPassword"
                     required
                     {...register("confirmPassword")}
                   ></input>
+                  <div
+                    className="absolute  top-2/4 -translate-y-2/4 right-2"
+                    onClick={() =>
+                      setIShowConfirmPassword(!isShowConfirmPassword)
+                    }
+                  >
+                    {isShowConfirmPassword ? <Eye /> : <EyeOff />}
+                  </div>
                 </div>
               </div>
 
