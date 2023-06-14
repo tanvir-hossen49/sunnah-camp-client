@@ -1,16 +1,17 @@
 import axios from "axios";
 import SectionTitle from "../../components/SectionTitle";
 import { useEffect, useState } from "react";
-import useAuth from "../Hook/useAuth";
 import ShowToast from "../../utility/ShowToast";
+import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const ManageClasses = () => {
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
-
+  const [axiosSecure] = useAxiosSecure();
   const handleApproved = async (event, id) => {
     try {
-      await axios.patch(`http://localhost:3001/classes/${id} `, {
+      await axiosSecure.patch(`/classes/${id} `, {
         status: "approve",
       });
       ShowToast("success", "status updated");

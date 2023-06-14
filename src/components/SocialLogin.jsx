@@ -1,8 +1,8 @@
 import { Github } from "lucide-react";
-import useAuth from "../page/Hook/useAuth";
 import ShowToast from "../utility/ShowToast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import useAuth from "../Hook/useAuth";
 
 const SocialLogin = () => {
   const { googleLogin } = useAuth();

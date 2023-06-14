@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import useAuth from "../Hook/useAuth";
 import ThemeToggle from "../../utility/ThemeToggle";
 import ShowToast from "../../utility/ShowToast";
 import { Menu } from "lucide-react";
 import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
 
 const NavigationBar = () => {
   const { user, logout } = useAuth();

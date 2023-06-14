@@ -1,15 +1,16 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle";
 import { useEffect, useState } from "react";
-import useAuth from "../Hook/useAuth";
 import ShowToast from "../../utility/ShowToast";
-import axios from "axios";
+import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const Classes = () => {
   const classes = useLoaderData();
   const [role, setRole] = useState("");
   const [selectedCourse, setSelectedCourse] = useState([]);
   const { user } = useAuth();
+  const [axiosSecure] = useAxiosSecure();
   const navigate = useNavigate();
 
   const handleSelect = async (event, selectedCourse) => {
@@ -19,7 +20,7 @@ const Classes = () => {
     }
 
     try {
-      const { data } = await axios.post("http://localhost:3001/add-course", {
+      const { data } = await axiosSecure.post("/add-course", {
         courseId: selectedCourse._id,
         image: selectedCourse.image,
         price: selectedCourse.price,
@@ -45,28 +46,27 @@ const Classes = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(
-        `http://localhost:3001/users/${user?.email}`
-      );
-      setRole(data.role);
+      if (user) {
+        const { data } = await axiosSecure.get(`/users/${user?.email}`);
+        setRole(data.role);
+      }
     })();
-  }, [user?.email]);
+  }, [user, axiosSecure]);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(
-        `http://localhost:3001/my-course/${user?.email}`
-      );
-      setSelectedCourse(data);
-    })();
-  }, [user?.email]);
+    if (user)
+      (async () => {
+        const { data } = await axiosSecure.get(`/my-course/${user?.email}`);
+        setSelectedCourse(data);
+      })();
+  }, [user, axiosSecure]);
 
   return (
     <div className="my-8 mx-10">
       <SectionTitle title="All Classes" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {classes.map(singleClass => (
+        {classes?.map(singleClass => (
           <div key={singleClass._id} className="card card-side border">
             <figure className=" w-1/3">
               <img src={singleClass.image} alt="" className="w-full h-full" />

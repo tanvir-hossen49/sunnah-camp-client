@@ -1,16 +1,16 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
-import useAuth from "../Hook/useAuth";
 import { Send } from "lucide-react";
-import axios from "axios";
 import ShowToast from "../../utility/ShowToast";
+import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const IMAGE_HOSTING_TOKEN = import.meta.env.VITE_Image_Upload_Token;
 
 const AddClass = () => {
   const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
-
+  const [axiosSecure] = useAxiosSecure();
   const onSubmit = async data => {
     const image_hosting_url = `https://api.imgbb.com/1/upload?key=${IMAGE_HOSTING_TOKEN}`;
 
@@ -31,10 +31,7 @@ const AddClass = () => {
         data.seats = parseFloat(data.seats);
         data.status = "pending";
 
-        const response = await axios.post(
-          "http://localhost:3001/classes",
-          data
-        );
+        const response = await axiosSecure.post("/classes", data);
         if (response.data.insertedId) {
           reset();
           ShowToast("success", "inserted successful");

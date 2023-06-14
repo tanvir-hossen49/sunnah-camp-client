@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
-import useAuth from "../Hook/useAuth";
 import { Send } from "lucide-react";
 import axios from "axios";
 import ShowToast from "../../utility/ShowToast";
 import { TagsInput } from "react-tag-input-component";
 import { useEffect, useState } from "react";
+import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const IMAGE_HOSTING_TOKEN = import.meta.env.VITE_Image_Upload_Token;
 
@@ -14,6 +15,7 @@ const AddInstructor = () => {
   const { register, handleSubmit } = useForm();
   const [selected, setSelected] = useState([]);
   const [instructor, setInstructor] = useState([]);
+  const [axiosSecure] = useAxiosSecure();
 
   const onSubmit = async data => {
     const image_hosting_url = `https://api.imgbb.com/1/upload?key=${IMAGE_HOSTING_TOKEN}`;
@@ -22,11 +24,11 @@ const AddInstructor = () => {
       // if instructor profile already updated
       if (instructor) {
         data.category = data.category || instructor.category;
-        const response = await axios.patch(
+        const response = await axiosSecure.patch(
           `http://localhost:3001/update-instructor/${user.email}`,
           { category: data.category, classes: selected }
         );
-        console.log(response.data);
+
         if (response.data.modifiedCount > 0) {
           ShowToast("success", "updated successful");
         }
@@ -45,10 +47,7 @@ const AddInstructor = () => {
           data.image = imageURL;
           data.classes = selected;
 
-          const response = await axios.post(
-            "http://localhost:3001/add-instructor",
-            data
-          );
+          const response = await axiosSecure.post("/add-instructor", data);
           if (response.data.insertedId) {
             ShowToast("success", "inserted successful");
           }

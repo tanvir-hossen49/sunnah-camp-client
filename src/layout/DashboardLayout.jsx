@@ -1,21 +1,20 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import ThemeToggle from "../utility/ThemeToggle";
-import useAuth from "../page/Hook/useAuth";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
+import useAuth from "../Hook/useAuth";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 
 const DashboardLayout = () => {
   const { user } = useAuth();
   const [role, setRole] = useState("");
-
+  const [axiosSecure] = useAxiosSecure();
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(
-        `http://localhost:3001/users/${user?.email}`
-      );
+      const { data } = await axiosSecure.get(`/users/${user?.email}`);
       setRole(data.role);
     })();
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   return (
     <div className="drawer lg:drawer-open ">

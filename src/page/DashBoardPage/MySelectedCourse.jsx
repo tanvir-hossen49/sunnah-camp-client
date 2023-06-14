@@ -1,13 +1,28 @@
-import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
-import useAuth from "../Hook/useAuth";
-import axios from "axios";
 import Swal from "sweetalert2";
 import ShowToast from "../../utility/ShowToast";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAuth from "../../Hook/useAuth";
+import { useQuery } from "@tanstack/react-query";
+
+const GetSelectedCourse = () => {
+  const { user, loading } = useAuth();
+  const [axiosSecure] = useAxiosSecure();
+  const { refetch, data: selectedCourse = [] } = useQuery({
+    queryKey: ["selectedCourse", user?.email],
+    enabled: !loading,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/my-course/${user?.email}`);
+      return res.data;
+    },
+  });
+
+  return [selectedCourse, refetch];
+};
 
 const MySelectedCourse = () => {
-  const { user } = useAuth();
-  const [selectedCourse, setSelectedCourse] = useState([]);
+  const [selectedCourse, refetch] = GetSelectedCourse();
+  const [axiosSecure] = useAxiosSecure();
 
   const handleDelete = id => {
     Swal.fire({
@@ -19,23 +34,13 @@ const MySelectedCourse = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async () => {
-      const { data } = await axios.delete(
-        `http://localhost:3001/my-course/${id}`
-      );
+      const { data } = await axiosSecure.delete(`/my-course/${id}`);
       if (data.deletedCount > 0) {
         ShowToast("success", "deleted course");
+        refetch();
       }
     });
   };
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(
-        `http://localhost:3001/my-course/${user?.email}`
-      );
-      setSelectedCourse(data);
-    })();
-  }, [user?.email]);
 
   return (
     <div className="w-full p-8">

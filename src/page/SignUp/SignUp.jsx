@@ -3,9 +3,9 @@ import SocialLogin from "../../components/SocialLogin";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import { Link, Navigate } from "react-router-dom";
 import ShowToast from "../../utility/ShowToast";
-import useAuth from "../Hook/useAuth";
 import axios from "axios";
 import { useState } from "react";
+import useAuth from "../../Hook/useAuth";
 
 const SignUp = () => {
   const [isShow, setIsShow] = useState(false);

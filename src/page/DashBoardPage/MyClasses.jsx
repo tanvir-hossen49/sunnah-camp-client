@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
-import axios from "axios";
-import useAuth from "../Hook/useAuth";
 import { Edit2, X } from "lucide-react";
+import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const MyClasses = () => {
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
+  const [axiosSecure] = useAxiosSecure();
 
   useEffect(() => {
-    axios(`http://localhost:3001/classes?email=${user?.email}`).then(
-      response => {
-        setClasses(response.data);
-      }
-    );
-  }, [user?.email]);
+    axiosSecure(`/classes?email=${user?.email}`).then(response => {
+      setClasses(response.data);
+    });
+  }, [user?.email, axiosSecure]);
 
   return (
     <div className="w-full p-8">
