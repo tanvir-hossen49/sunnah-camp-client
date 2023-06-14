@@ -69,7 +69,10 @@ nav {
   right: auto;
   left: 30px;
 }
-
+button:disabled {
+  border: 1px solid var(--foreground);
+  color: var(--muted-foreground) !important;
+}
 .input {
   background-color: var(--background);
 }
@@ -102,4 +105,3 @@ nav .nav-item {
   background-color: transparent;
   color: var(--foreground);
 }
-

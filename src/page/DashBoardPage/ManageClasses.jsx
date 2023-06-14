@@ -1,11 +1,12 @@
-import axios from "axios";
 import SectionTitle from "../../components/SectionTitle";
 import { useEffect, useState } from "react";
 import ShowToast from "../../utility/ShowToast";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useTitle from "../../Hook/useTitle";
 
 const ManageClasses = () => {
+  useTitle("Manage Classes");
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
   const [axiosSecure] = useAxiosSecure();
@@ -22,10 +23,10 @@ const ManageClasses = () => {
   };
 
   useEffect(() => {
-    axios("http://localhost:3001/admin/all-classes").then(response => {
+    axiosSecure.get("/admin/all-classes").then(response => {
       setClasses(response.data);
     });
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   return (
     <div className="w-full p-8">

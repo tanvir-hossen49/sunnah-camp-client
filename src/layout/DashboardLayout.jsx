@@ -1,21 +1,14 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import ThemeToggle from "../utility/ThemeToggle";
-import { useEffect, useState } from "react";
-
 import useAuth from "../Hook/useAuth";
-import useAxiosSecure from "../Hook/useAxiosSecure";
+import useRole from "../Hook/useRole";
+import useTitle from "../Hook/useTitle";
 
 const DashboardLayout = () => {
+  useTitle("Dashboard");
   const { user } = useAuth();
-  const [role, setRole] = useState("");
-  const [axiosSecure] = useAxiosSecure();
-  useEffect(() => {
-    (async () => {
-      const { data } = await axiosSecure.get(`/users/${user?.email}`);
-      setRole(data.role);
-    })();
-  }, [user?.email, axiosSecure]);
-
+  const [role] = useRole();
+  console.log(role);
   return (
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -63,7 +56,9 @@ const DashboardLayout = () => {
                   <NavLink to="/dashboard/my-classes">My Classes</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/add-instructor">Update Info</NavLink>
+                  <NavLink to="/dashboard/update-instructor">
+                    Update Info
+                  </NavLink>
                 </li>
               </>
             ) : (

@@ -2,12 +2,10 @@ import { Navigate, useLocation } from "react-router";
 import useAuth from "../Hook/useAuth";
 import useRole from "../Hook/useRole";
 
-const AdminRoute = ({ children }) => {
+const InstructorRoutes = ({ children }) => {
   const { user, loading } = useAuth();
-  const [role, isLoading] = useRole();
+  const [isAdmin, isLoading] = useRole();
   const location = useLocation();
-
-  console.log(role);
 
   if (loading || isLoading) {
     return (
@@ -17,10 +15,10 @@ const AdminRoute = ({ children }) => {
     );
   }
 
-  if (user && role === "admin") {
+  if (user && isAdmin === "instructor") {
     return children;
   }
   return <Navigate to="/" state={{ from: location }} replace></Navigate>;
 };
 
-export default AdminRoute;
+export default InstructorRoutes;

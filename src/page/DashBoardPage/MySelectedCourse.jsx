@@ -4,8 +4,10 @@ import ShowToast from "../../utility/ShowToast";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import useTitle from "../../Hook/useTitle";
 
 const GetSelectedCourse = () => {
+  useTitle("Selected Classes");
   const { user, loading } = useAuth();
   const [axiosSecure] = useAxiosSecure();
   const { refetch, data: selectedCourse = [] } = useQuery({

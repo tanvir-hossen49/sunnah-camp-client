@@ -3,7 +3,10 @@
 // import { Elements } from "@stripe/react-stripe-js";
 // import useCart from "../../hooks/useCart";
 
+import useTitle from "../../Hook/useTitle";
+
 const Payment = () => {
+  useTitle("Payment");
   //   const [cart] = useCart();
   //   const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_Key);
   //   const price = cart.reduce((acc, curr) => {

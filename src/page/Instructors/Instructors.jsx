@@ -1,9 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle";
+import useTitle from "../../Hook/useTitle";
 
 const Instructors = () => {
   const instructors = useLoaderData();
-
+  useTitle("Instructor");
   return (
     <div className="mx-8 my-10">
       <SectionTitle title="All instructor" />

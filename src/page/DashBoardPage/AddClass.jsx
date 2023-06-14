@@ -4,10 +4,12 @@ import { Send } from "lucide-react";
 import ShowToast from "../../utility/ShowToast";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useTitle from "../../Hook/useTitle";
 
 const IMAGE_HOSTING_TOKEN = import.meta.env.VITE_Image_Upload_Token;
 
 const AddClass = () => {
+  useTitle("Add Class");
   const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
   const [axiosSecure] = useAxiosSecure();

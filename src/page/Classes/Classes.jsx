@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ShowToast from "../../utility/ShowToast";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useTitle from "../../Hook/useTitle";
 
 const Classes = () => {
   const classes = useLoaderData();
@@ -12,7 +13,8 @@ const Classes = () => {
   const { user } = useAuth();
   const [axiosSecure] = useAxiosSecure();
   const navigate = useNavigate();
-
+  useTitle("Classes");
+  
   const handleSelect = async (event, selectedCourse) => {
     if (!user?.email) {
       navigate("/signin");

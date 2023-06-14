@@ -7,10 +7,10 @@ import { TagsInput } from "react-tag-input-component";
 import { useEffect, useState } from "react";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-
-const IMAGE_HOSTING_TOKEN = import.meta.env.VITE_Image_Upload_Token;
+import useTitle from "../../Hook/useTitle";
 
 const AddInstructor = () => {
+  useTitle("Update Instructor");
   const { user } = useAuth();
   const { register, handleSubmit } = useForm();
   const [selected, setSelected] = useState([]);
@@ -18,14 +18,12 @@ const AddInstructor = () => {
   const [axiosSecure] = useAxiosSecure();
 
   const onSubmit = async data => {
-    const image_hosting_url = `https://api.imgbb.com/1/upload?key=${IMAGE_HOSTING_TOKEN}`;
-
     try {
       // if instructor profile already updated
       if (instructor) {
         data.category = data.category || instructor.category;
         const response = await axiosSecure.patch(
-          `http://localhost:3001/update-instructor/${user.email}`,
+          `/update-instructor/${user.email}`,
           { category: data.category, classes: selected }
         );
 
@@ -33,24 +31,12 @@ const AddInstructor = () => {
           ShowToast("success", "updated successful");
         }
       } else {
-        const formData = new FormData();
-        formData.append("image", data.image[0]);
+        data.image = user.photoURL;
+        data.classes = selected;
 
-        const imageBBresponse = await fetch(image_hosting_url, {
-          method: "POST",
-          body: formData,
-        });
-        const imageBB = await imageBBresponse.json();
-
-        if (imageBB.success) {
-          const imageURL = imageBB.data.display_url;
-          data.image = imageURL;
-          data.classes = selected;
-
-          const response = await axiosSecure.post("/add-instructor", data);
-          if (response.data.insertedId) {
-            ShowToast("success", "inserted successful");
-          }
+        const response = await axiosSecure.post("/add-instructor", data);
+        if (response.data.insertedId) {
+          ShowToast("success", "inserted successful");
         }
       }
     } catch (error) {
@@ -126,24 +112,6 @@ const AddInstructor = () => {
               className="input input-bordered"
             />
           </div>
-
-          {/* CLASS IMAGE */}
-          {instructor ? (
-            ""
-          ) : (
-            <div className="form-control flex-1">
-              <label className="label">
-                <span className="text-base font-semibold">Upload Image</span>
-              </label>
-              <input
-                type="file"
-                {...register("image")}
-                accept="image/*"
-                className="file-input text-white  file-input-bordered w-full  "
-                required
-              />
-            </div>
-          )}
         </div>
         {/* CLASS NAME */}
         <div className="form-control flex-1">

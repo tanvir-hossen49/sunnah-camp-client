@@ -14,6 +14,7 @@ import Classes from "../page/Classes/Classes";
 import MySelectedCourse from "../page/DashBoardPage/MySelectedCourse";
 import Payment from "../page/DashBoardPage/Payment";
 import AdminRoute from "./AdminRoutes";
+import InstructorRoutes from "./InstructorRoutes";
 
 const router = createBrowserRouter([
   {
@@ -64,15 +65,27 @@ const router = createBrowserRouter([
       //instructor routes
       {
         path: "add-a-class",
-        element: <AddClass />,
+        element: (
+          <InstructorRoutes>
+            <AddClass />
+          </InstructorRoutes>
+        ),
       },
       {
         path: "my-classes",
-        element: <MyClasses />,
+        element: (
+          <InstructorRoutes>
+            <MyClasses />
+          </InstructorRoutes>
+        ),
       },
       {
-        path: "add-instructor",
-        element: <AddInstructor />,
+        path: "update-instructor",
+        element: (
+          <InstructorRoutes>
+            <AddInstructor />
+          </InstructorRoutes>
+        ),
       },
       // user routes
       {

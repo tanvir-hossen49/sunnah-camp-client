@@ -1,17 +1,21 @@
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../components/SocialLogin";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShowToast from "../../utility/ShowToast";
 import axios from "axios";
 import { useState } from "react";
 import useAuth from "../../Hook/useAuth";
+import useTitle from "../../Hook/useTitle";
+import { ShowFirebaseError } from "../../utility/ShowFirebaseError";
 
 const SignUp = () => {
+  useTitle("Sing Up");
   const [isShow, setIsShow] = useState(false);
   const [isShowConfirmPassword, setIShowConfirmPassword] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const { createUser, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = async data => {
     const { email, password, confirmPassword, photoURL, name } = data;
@@ -36,10 +40,10 @@ const SignUp = () => {
       if (data.insertedId) {
         reset();
         ShowToast("success", "user profile updated");
-        Navigate("/");
+        navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      ShowFirebaseError(error);
     }
   };
 

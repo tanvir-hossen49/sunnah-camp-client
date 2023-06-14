@@ -3,8 +3,10 @@ import SectionTitle from "../../components/SectionTitle";
 import { Edit2, X } from "lucide-react";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useTitle from "../../Hook/useTitle";
 
 const MyClasses = () => {
+  useTitle("My Classes");
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
   const [axiosSecure] = useAxiosSecure();

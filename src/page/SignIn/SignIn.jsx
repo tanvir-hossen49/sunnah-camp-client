@@ -3,15 +3,19 @@ import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import SocialLogin from "../../components/SocialLogin";
 
 import ShowToast from "../../utility/ShowToast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useAuth from "../../Hook/useAuth";
+import useTitle from "../../Hook/useTitle";
 
 const SignIn = () => {
+  useTitle("Sign In");
   const { register, handleSubmit } = useForm();
   const [isShow, setIsShow] = useState(false);
   const { signin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = async data => {
     const { email, password } = data;
@@ -19,7 +23,7 @@ const SignIn = () => {
     try {
       await signin(email, password);
       ShowToast("success", "login successful");
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
     }
