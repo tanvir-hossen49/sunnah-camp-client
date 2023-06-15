@@ -44,7 +44,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/my-enrolled-class">Manage Users</NavLink>
+                  <NavLink to="/dashboard/manage-users">Manage Users</NavLink>
                 </li>
               </>
             ) : role === "instructor" ? (

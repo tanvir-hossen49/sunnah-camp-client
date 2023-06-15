@@ -31,7 +31,7 @@ const Slider = () => {
                 solidarity of the ummah.
               </p>
               <button className="btn bg-white text-black hover:text-white ">
-                Explore
+                Explore More
               </button>
             </div>
           </div>

@@ -15,6 +15,7 @@ import MySelectedCourse from "../page/DashBoardPage/MySelectedCourse";
 import Payment from "../page/DashBoardPage/Payment";
 import AdminRoute from "./AdminRoutes";
 import InstructorRoutes from "./InstructorRoutes";
+import ManageUsers from "../page/DashBoardPage/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageClasses />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
           </AdminRoute>
         ),
       },
