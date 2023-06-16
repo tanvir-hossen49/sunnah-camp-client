@@ -8,13 +8,13 @@ const PrivateRoutes = ({ children }) => {
   if (loading)
     return (
       <div className="pt-10 text-center">
-        <span className=" loading loading-dots loading-lg "></span>;
+        <span className=" loading loading-dots loading-lg "></span>
       </div>
     );
 
   if (user) return children;
 
-  <Navigate to="/login" state={{ from: location }} replace />;
+  <Navigate to="/signin" state={{ from: location }} replace />;
 };
 
 export default PrivateRoutes;

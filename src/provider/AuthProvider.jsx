@@ -64,11 +64,11 @@ const AuthProvider = ({ children }) => {
         axios
           .post("http://localhost:3001/jwt", { email: currentUser.email })
           .then(data => {
-            localStorage.setItem("summer-camp-token", data.data.token);
+            localStorage.setItem("sunnah-camp", data.data.token);
             setLoading(false);
           });
       } else {
-        localStorage.removeItem("summer-camp-token");
+        localStorage.removeItem("sunnah-camp");
         setLoading(false);
       }
     });

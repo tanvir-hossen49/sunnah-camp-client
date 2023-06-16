@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/SectionTitle";
 import { Send } from "lucide-react";
-import axios from "axios";
 import ShowToast from "../../utility/ShowToast";
 import { TagsInput } from "react-tag-input-component";
 import { useEffect, useState } from "react";
@@ -45,8 +44,8 @@ const AddInstructor = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/is-new-instructor/${user?.email}`)
+    axiosSecure
+      .get(`/is-new-instructor/${user?.email}`)
       .then(res => {
         setInstructor(res.data);
         setSelected(res.data.classes);
@@ -54,7 +53,7 @@ const AddInstructor = () => {
       .catch(error => {
         console.log(error);
       });
-  }, [user?.email]);
+  }, [user, axiosSecure]);
 
   return (
     <div className="w-full p-8 ">

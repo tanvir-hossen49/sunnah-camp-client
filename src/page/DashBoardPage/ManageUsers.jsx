@@ -11,7 +11,7 @@ const Users = () => {
     queryKey: ["users"],
     enabled: !loading,
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/users");
+      const { data } = await axiosSecure.get("/all-users");
       return data;
     },
   });
@@ -42,7 +42,7 @@ const ManageUsers = () => {
       }
     });
   };
-  const handleAdmin = () => {
+  const handleAdmin = email => {
     Swal.fire({
       title: "Are you sure?",
       text: " you want to make it an Admin?",
@@ -53,7 +53,7 @@ const ManageUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async result => {
       if (result.isConfirmed) {
-        const { data } = await axiosSecure.patch(`/user?role=admin`);
+        const { data } = await axiosSecure.patch(`/user/${email}?role=admin`);
         refetch();
         console.log(data);
       }
@@ -84,7 +84,7 @@ const ManageUsers = () => {
                 <td>{index + 1}</td>
                 <td className="whitespace-nowrap">{user.name}</td>
                 <td className="whitespace-nowrap">{user.email}</td>
-                <td>{user.role === undefined ? "student" : user.role}</td>
+                <td>{user.role}</td>
                 <td>
                   <button
                     onClick={() => handleInstructor(user.email)}

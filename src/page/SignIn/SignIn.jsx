@@ -22,14 +22,11 @@ const SignIn = () => {
 
     try {
       await signin(email, password);
-      ShowToast("success", "login successful");
       navigate(from, { replace: true });
+      ShowToast("success", "login successful");
     } catch (error) {
       console.log(error);
     }
-
-    // ShowToast("success", "user login successful");
-    // navigate("/");
   };
 
   return (

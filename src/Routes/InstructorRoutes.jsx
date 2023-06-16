@@ -18,7 +18,7 @@ const InstructorRoutes = ({ children }) => {
   if (user && isAdmin === "instructor") {
     return children;
   }
-  return <Navigate to="/" state={{ from: location }} replace></Navigate>;
+  return <Navigate to="/signin" state={{ from: location }} replace></Navigate>;
 };
 
 export default InstructorRoutes;

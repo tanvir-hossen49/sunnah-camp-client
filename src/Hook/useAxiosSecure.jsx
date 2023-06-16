@@ -12,7 +12,7 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axiosSecure.interceptors.request.use(config => {
-      const token = localStorage.getItem("summer-camp-token");
+      const token = localStorage.getItem("sunnah-camp");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

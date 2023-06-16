@@ -30,7 +30,7 @@ const AddClass = () => {
         const imageURL = imageBB.data.display_url;
         data.image = imageURL;
         data.price = parseFloat(data.price);
-        data.seats = parseFloat(data.seats);
+        data.totalSeats = parseFloat(data.totalSeats);
         data.status = "pending";
 
         const response = await axiosSecure.post("/classes", data);
@@ -128,16 +128,16 @@ const AddClass = () => {
             />
           </div>
 
-          {/* SEATS */}
+          {/* totalSeats */}
           <div className="form-control flex-1">
             <label className="label">
-              <span className="text-base font-semibold ">Seats*</span>
+              <span className="text-base font-semibold ">totalSeats*</span>
             </label>
             <input
               type="number"
               required
-              placeholder="available seats"
-              {...register("seats")}
+              placeholder="total seats"
+              {...register("totalSeats")}
               className="input input-bordered"
             />
           </div>

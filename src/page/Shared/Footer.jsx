@@ -4,7 +4,7 @@ const Footer = () => {
       <div>
         <div className="flex items-center">
           <img src="/logo.png" alt="Website Logo" className="h-8 w-8 mr-2" />
-          <h1 className="text-white text-lg font-semibold">Summer camp</h1>
+          <h1 className="text-white text-lg font-semibold">Sunnah Camp</h1>
         </div>
         <div className="text-gray-500 text-sm">
           <p>&copy; {new Date().getFullYear()} All rights reserved.</p>

@@ -16,7 +16,7 @@ const NavigationBar = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, sign out!",
     }).then(result => {
       if (result.isConfirmed) {
         logout().then(() => {
@@ -88,7 +88,7 @@ const NavigationBar = () => {
           </ul>
         </div>
         <a className="leading-5 text-xl">
-          <span className="font-bold">Summer Camp</span>
+          <span className="font-bold">Sunnah Camp</span>
         </a>
       </div>
 

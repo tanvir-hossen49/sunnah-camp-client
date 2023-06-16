@@ -16,11 +16,14 @@ import Payment from "../page/DashBoardPage/Payment";
 import AdminRoute from "./AdminRoutes";
 import InstructorRoutes from "./InstructorRoutes";
 import ManageUsers from "../page/DashBoardPage/ManageUsers";
+import Error from "../page/Error/Error";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -48,6 +51,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
+    errorElement: <Error />,
     element: (
       <PrivateRoutes>
         <DashboardLayout />
@@ -102,8 +106,14 @@ const router = createBrowserRouter([
         element: <MySelectedCourse />,
       },
       {
-        path: "payment",
+        path: "payment/:id",
         element: <Payment />,
+        loader: ({ params }) =>
+          axios.get(`http://localhost:3001/price/${params.id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("sunnah-camp")}`,
+            },
+          }),
       },
     ],
   },

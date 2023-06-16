@@ -3,12 +3,23 @@ import ThemeToggle from "../utility/ThemeToggle";
 import useAuth from "../Hook/useAuth";
 import useRole from "../Hook/useRole";
 import useTitle from "../Hook/useTitle";
+import {
+  BookMarked,
+  BookPlus,
+  CircleDollarSign,
+  FileEdit,
+  Home,
+  UserCircle2,
+  UserCog2,
+  Users2,
+} from "lucide-react";
+import { Users } from "lucide-react";
 
 const DashboardLayout = () => {
   useTitle("Dashboard");
   const { user } = useAuth();
   const [role] = useRole();
-  console.log(role);
+
   return (
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -40,23 +51,34 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <NavLink to="/dashboard/manage-classes">
+                    <Users className="mr-2" />
                     Manage Classes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/manage-users">Manage Users</NavLink>
+                  <NavLink to="/dashboard/manage-users">
+                    <UserCog2 className="mr-2" />
+                    Manage Users
+                  </NavLink>
                 </li>
               </>
             ) : role === "instructor" ? (
               <>
                 <li>
-                  <NavLink to="/dashboard/add-a-class">Add a Class</NavLink>
+                  <NavLink to="/dashboard/add-a-class">
+                    <BookPlus className="mr-2" />
+                    Add a Class
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/my-classes">My Classes</NavLink>
+                  <NavLink to="/dashboard/my-classes">
+                    <Users2 className="mr-2" />
+                    My Classes
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink to="/dashboard/update-instructor">
+                    <FileEdit className="mr-2" />
                     Update Info
                   </NavLink>
                 </li>
@@ -65,14 +87,21 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <NavLink to="/dashboard/my-selected-course">
+                    <UserCircle2 className="mr-2" />
                     My Selected Classes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/my-enrolled-class">My Enrolled Classes</NavLink>
+                  <NavLink to="/my-enrolled-class">
+                    <BookMarked className="mr-2" />
+                    My Enrolled Classes
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/payment-history">Payment History</NavLink>
+                  <NavLink to="/payment-history">
+                    <CircleDollarSign className="mr-2" />
+                    Payment History
+                  </NavLink>
                 </li>
               </>
             )}
@@ -82,7 +111,10 @@ const DashboardLayout = () => {
 
           <div>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">
+                <Home className="mr-2" />
+                Home
+              </Link>
             </li>
             <li>
               <ThemeToggle />

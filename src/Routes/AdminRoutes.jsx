@@ -7,8 +7,6 @@ const AdminRoute = ({ children }) => {
   const [role, isLoading] = useRole();
   const location = useLocation();
 
-  console.log(role);
-
   if (loading || isLoading) {
     return (
       <div className="pt-10 text-center">
@@ -20,7 +18,7 @@ const AdminRoute = ({ children }) => {
   if (user && role === "admin") {
     return children;
   }
-  return <Navigate to="/" state={{ from: location }} replace></Navigate>;
+  return <Navigate to="/signin" state={{ from: location }} replace></Navigate>;
 };
 
 export default AdminRoute;

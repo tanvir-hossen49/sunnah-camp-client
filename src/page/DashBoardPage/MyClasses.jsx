@@ -39,7 +39,7 @@ const MyClasses = () => {
             </tr>
           </thead>
           <tbody className="divide-y">
-            {classes.map((myClass, index) => (
+            {classes?.map((myClass, index) => (
               <tr key={myClass._id}>
                 <td>{index + 1}</td>
                 <td>
@@ -51,7 +51,7 @@ const MyClasses = () => {
                 </td>
                 <td>{myClass.className}</td>
                 <td>${myClass.price}</td>
-                <td>{myClass.seats}</td>
+                <td>{myClass.totalSeats}</td>
                 <td>0</td>
                 <td>
                   <span
@@ -80,7 +80,6 @@ const MyClasses = () => {
                     <Edit2 />
                   </label>
 
-                  {/* Put this part before </body> tag */}
                   <input
                     type="checkbox"
                     id="my_modal_7"
@@ -135,17 +134,17 @@ const MyClasses = () => {
                             />
                           </div>
 
-                          {/* SEATS */}
+                          {/* totalSeats */}
                           <div className="">
                             <label className="label">
                               <span className="text-base font-semibold ">
-                                Seats*
+                                totalSeats*
                               </span>
                             </label>
                             <input
                               type="number"
                               required
-                              placeholder="available seats"
+                              placeholder="total Seats"
                               className="input input-bordered"
                             />
                           </div>

@@ -31,7 +31,7 @@ const Instructors = () => {
                 </p>
                 <p>
                   Classes:{" "}
-                  {instructor.classes.map((givenClass, index) => (
+                  {instructor?.classes.map((givenClass, index) => (
                     <span key={index} className="capitalize">
                       {givenClass}
                       {instructor.classes.length !== index + 1 && ","}{" "}

@@ -14,9 +14,9 @@ const Classes = () => {
   const [axiosSecure] = useAxiosSecure();
   const navigate = useNavigate();
   useTitle("Classes");
-  
+
   const handleSelect = async (event, selectedCourse) => {
-    if (!user?.email) {
+    if (!user) {
       navigate("/signin");
       ShowToast("warn", "log in first");
     }
@@ -26,7 +26,7 @@ const Classes = () => {
         courseId: selectedCourse._id,
         image: selectedCourse.image,
         price: selectedCourse.price,
-        seat: selectedCourse.seats,
+        totalSeats: selectedCourse.totalSeats,
         courseName: selectedCourse.className,
         email: user?.email,
       });
@@ -34,7 +34,6 @@ const Classes = () => {
         ShowToast("success", "course added");
         event.target.setAttribute("disabled", "disabled");
       } else {
-        event.target.setAttribute("disabled", "disabled");
         ShowToast("error", data.message);
       }
     } catch (error) {
@@ -78,7 +77,7 @@ const Classes = () => {
               <p>Instructor: {singleClass.instructorName}</p>
               <div className="flex justify-between">
                 <p>Price: ${singleClass.price}</p>
-                <p>Seat: {singleClass.seats}</p>
+                <p>Seat: {singleClass.totalSeats}</p>
               </div>
               <div className="mt-2 text-right">
                 <button

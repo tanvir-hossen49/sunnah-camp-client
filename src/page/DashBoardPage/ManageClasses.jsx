@@ -12,7 +12,7 @@ const ManageClasses = () => {
   const [axiosSecure] = useAxiosSecure();
   const handleApproved = async (event, id) => {
     try {
-      await axiosSecure.patch(`/classes/${id} `, {
+      await axiosSecure.patch(`/updateStatus/${id} `, {
         status: "approve",
       });
       ShowToast("success", "status updated");
@@ -50,7 +50,7 @@ const ManageClasses = () => {
             </tr>
           </thead>
           <tbody>
-            {classes.map((row, index) => (
+            {classes?.map((row, index) => (
               <tr key={row._id}>
                 <td>{index + 1}</td>
                 <td>
@@ -63,7 +63,7 @@ const ManageClasses = () => {
                 <td className="whitespace-nowrap">{row.className}</td>
                 <td className="whitespace-nowrap">{row.instructorName}</td>
                 <td>{row.email}</td>
-                <td>{row.seats}</td>
+                <td>{row.availableSeats}</td>
                 <td>{row.price}</td>
                 <td>
                   <span

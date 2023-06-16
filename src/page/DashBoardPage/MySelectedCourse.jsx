@@ -5,11 +5,12 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useTitle from "../../Hook/useTitle";
+import { Link } from "react-router-dom";
 
 const GetSelectedCourse = () => {
-  useTitle("Selected Classes");
   const { user, loading } = useAuth();
   const [axiosSecure] = useAxiosSecure();
+
   const { refetch, data: selectedCourse = [] } = useQuery({
     queryKey: ["selectedCourse", user?.email],
     enabled: !loading,
@@ -23,6 +24,7 @@ const GetSelectedCourse = () => {
 };
 
 const MySelectedCourse = () => {
+  useTitle("Selected Classes");
   const [selectedCourse, refetch] = GetSelectedCourse();
   const [axiosSecure] = useAxiosSecure();
 
@@ -35,11 +37,13 @@ const MySelectedCourse = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then(async () => {
-      const { data } = await axiosSecure.delete(`/my-course/${id}`);
-      if (data.deletedCount > 0) {
-        ShowToast("success", "deleted course");
-        refetch();
+    }).then(async result => {
+      if (result.isConfirmed) {
+        const { data } = await axiosSecure.delete(`/my-course/${id}`);
+        if (data.deletedCount > 0) {
+          ShowToast("success", "deleted course");
+          refetch();
+        }
       }
     });
   };
@@ -64,8 +68,9 @@ const MySelectedCourse = () => {
             </tr>
           </thead>
           <tbody>
-            {selectedCourse.map((myCourse, index) => {
-              const { _id, image, price, seat, courseName } = myCourse;
+            {selectedCourse?.map((myCourse, index) => {
+              const { _id, image, price, seat, courseName, courseId } =
+                myCourse;
               return (
                 <tr key={_id}>
                   <td>{index + 1}</td>
@@ -80,7 +85,9 @@ const MySelectedCourse = () => {
                   <td>${price}</td>
                   <td>{seat}</td>
                   <td>
-                    <button className="btn btn-primary">Pay</button>
+                    <Link to={`/dashboard/payment/${courseId}`}>
+                      <button className="btn btn-primary">Pay</button>
+                    </Link>
                   </td>
                   <td>
                     <button
