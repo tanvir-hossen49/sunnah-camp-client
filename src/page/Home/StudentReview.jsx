@@ -3,8 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
-// import { Rating } from "@smastrom/react-rating";
-// import "@smastrom/react-rating/style.css";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 import axios from "axios";
 import SectionTitle from "../../components/SectionTitle";
 
@@ -24,7 +24,7 @@ const StudentReview = () => {
       <Swiper
         navigation={true}
         modules={[Navigation]}
-        className="mySwiper mt-10"
+        className="mySwiper my-10"
       >
         {reviews.map(review => (
           <SwiperSlide key={review._id} className="px-12 space-y-6 ">
@@ -37,9 +37,9 @@ const StudentReview = () => {
               />
             </div>
 
-            <p>{review.details}</p>
+            <p className="mx-10">{review.review}</p>
             <p className="text-center uppercase text-3xl font-semibold">
-              {review.name}
+              {review.student_name}
             </p>
           </SwiperSlide>
         ))}

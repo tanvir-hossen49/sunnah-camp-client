@@ -1,32 +1,52 @@
 import SectionTitle from "../../components/SectionTitle";
-import { useEffect, useState } from "react";
 import ShowToast from "../../utility/ShowToast";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageClasses = () => {
   useTitle("Manage Classes");
+
+  const { data: classes, refetch } = useQuery({
+    queryKey: ["classes"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/admin/all-classes");
+      return data;
+    },
+  });
+
   const { user } = useAuth();
-  const [classes, setClasses] = useState([]);
+  console.log(user);
   const [axiosSecure] = useAxiosSecure();
-  const handleApproved = async (event, id) => {
+
+  const handleApproved = async id => {
     try {
       await axiosSecure.patch(`/updateStatus/${id} `, {
         status: "approve",
       });
       ShowToast("success", "status updated");
-      event.target.setAttribute("disabled", "disabled");
+      refetch();
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    axiosSecure.get("/admin/all-classes").then(response => {
-      setClasses(response.data);
-    });
-  }, [user?.email, axiosSecure]);
+  const handleDeny = async id => {
+    try {
+      await axiosSecure.patch(`/updateStatus/${id} `, {
+        status: "deny",
+      });
+      ShowToast("success", "status updated");
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFeedback = id => {
+    console.log(id);
+  };
 
   return (
     <div className="w-full p-8">
@@ -81,14 +101,25 @@ const ManageClasses = () => {
 
                 <td className="space-y-4">
                   <button
-                    onClick={event => handleApproved(event, row._id)}
+                    onClick={() => handleApproved(row._id)}
                     className="btn w-full btn-primary"
-                    disabled={row.status === "approve"}
+                    disabled={row.status === "approve" || row.status === "deny"}
                   >
                     approved
                   </button>
-                  <button className="btn w-full btn-warning">denied</button>
-                  <button className="btn  w-full text-white">feedback</button>
+                  <button
+                    onClick={() => handleDeny(row._id)}
+                    disabled={row.status === "approve" || row.status === "deny"}
+                    className="btn w-full btn-warning"
+                  >
+                    denied
+                  </button>
+                  <button
+                    onClick={() => handleFeedback(row._id)}
+                    className="btn  w-full text-white"
+                  >
+                    feedback
+                  </button>
                 </td>
               </tr>
             ))}

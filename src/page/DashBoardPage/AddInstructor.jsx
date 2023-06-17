@@ -20,9 +20,9 @@ const AddInstructor = () => {
     try {
       // if instructor profile already updated
       if (instructor) {
-        data.category = data.category || instructor.category;
+        data.category = data?.category || instructor?.category;
         const response = await axiosSecure.patch(
-          `/update-instructor/${user.email}`,
+          `/update-instructor/${user?.email}`,
           { category: data.category, classes: selected }
         );
 
@@ -30,7 +30,7 @@ const AddInstructor = () => {
           ShowToast("success", "updated successful");
         }
       } else {
-        data.image = user.photoURL;
+        data.image = user?.photoURL;
         data.classes = selected;
 
         const response = await axiosSecure.post("/add-instructor", data);
