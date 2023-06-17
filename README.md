@@ -1,3 +1,9 @@
+## Islamic Course Seller Website
+
+# Overview
+
+The Islamic Course Seller website is an online platform designed to provide a wide range of high-quality Islamic courses to individuals seeking to deepen their knowledge and understanding of Islam.
+
 # Project Descriptions
 
 - Create Unique Design,
@@ -11,39 +17,21 @@
 - Admin panel section,
 - private route,
 - Admin private routes,
+- User Registration and Authentication
 - Create a 404 page, etc.
-- add payment
+- Secure Payment Integration
+- Responsive Design
 
-# Used packages/ technology
+# Technologies Used
 
-# FrontEnd
+The Islamic Course Seller website will be developed using the following technologies:
 
-- Technology
-  - React
-- Packages
-  - react router dom
-  - axios
-  - firebase
-  - lucide
-  - react
-  - react
-  - react
-  - react
-  - react
-  - react
-  - sweetalert2
-  - swiper
-
-# FrontEnd
-
-- Technology
-  - express.js
-- Packages
-  - cors
-  - dotenv
-  - express
-  - jsonwebtoken
-  - mongodb
-  - stripe
+- Front-end: HTML, CSS, JavaScript, React.js
+- Back-end: Node.js, Express.js
+- Database: MongoDB
+- Payment Integration: Stripe
+- Authentication: JWT (JSON Web Tokens)
+- Version Control: Git
+- Deployment: Firebase and Vercel
 
 ## LIVE LINK: https://summer-camp-eac1c.web.app

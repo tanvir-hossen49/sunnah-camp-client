@@ -1,14 +1,12 @@
 import { Github } from "lucide-react";
 import ShowToast from "../utility/ShowToast";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../Hook/useAuth";
 
 const SocialLogin = () => {
   const { googleLogin } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   const handleGoogleLogIn = () => {
     googleLogin().then(async result => {
@@ -24,10 +22,10 @@ const SocialLogin = () => {
         console.log(data);
         if (data.insertedId) {
           ShowToast("success", "user profile updated");
-          navigate(from, { replace: true });
+          navigate("/");
         } else {
           ShowToast("success", "login successful");
-          navigate(from, { replace: true });
+          navigate("/");
         }
       } catch (error) {
         console.log(error);

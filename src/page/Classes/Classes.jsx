@@ -7,7 +7,7 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
 
 const Classes = () => {
-  const classes = useLoaderData();
+  const classes = useLoaderData() || [];
   const [role, setRole] = useState("");
   const [selectedCourse, setSelectedCourse] = useState([]);
   const { user } = useAuth();
