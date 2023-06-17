@@ -13,7 +13,7 @@ const StudentReview = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/reviews")
+      .get("https://summer-camp-two.vercel.app/reviews")
       .then(data => setReviews(data.data));
   }, []);
 

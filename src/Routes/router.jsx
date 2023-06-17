@@ -45,7 +45,7 @@ const router = createBrowserRouter([
       {
         path: "classes",
         element: <Classes />,
-        loader: () => fetch("http://localhost:3001/user/all-classes"),
+        loader: () => fetch("https://summer-camp-two.vercel.app/user/all-classes"),
       },
     ],
   },
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
         path: "payment/:id",
         element: <Payment />,
         loader: ({ params }) =>
-          axios.get(`http://localhost:3001/price/${params.id}`, {
+          axios.get(`https://summer-camp-two.vercel.app/price/${params.id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("sunnah-camp")}`,
             },

@@ -32,7 +32,7 @@ const SignUp = () => {
       const savedUser = { name, email, image: photoURL };
 
       const response = await axios.post(
-        "http://localhost:3001/users",
+        "https://summer-camp-two.vercel.app/users",
         savedUser
       );
       const data = response.data;

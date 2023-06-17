@@ -8,9 +8,11 @@ const Instructors = () => {
   const [instructors, setInstructors] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/all-instructors").then(res => {
-      setInstructors(res.data);
-    });
+    axios
+      .get("https://summer-camp-two.vercel.app/all-instructors")
+      .then(res => {
+        setInstructors(res.data);
+      });
   }, []);
 
   return (

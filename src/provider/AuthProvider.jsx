@@ -62,7 +62,9 @@ const AuthProvider = ({ children }) => {
 
       if (currentUser) {
         axios
-          .post("http://localhost:3001/jwt", { email: currentUser.email })
+          .post("https://summer-camp-two.vercel.app/jwt", {
+            email: currentUser.email,
+          })
           .then(data => {
             localStorage.setItem("sunnah-camp", data.data.token);
             setLoading(false);
