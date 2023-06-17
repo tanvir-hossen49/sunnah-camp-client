@@ -1,13 +1,8 @@
 # Project Descriptions
 
-- Create Unique Navbar,
+- Create Unique Design,
 - Login & Registration with firebase,
-- Create Home page:
-
-1. Banner section,
-2. top course Section,
-3. top instructor section.
-
+- Create Multiple Pages
 - Create a Blog page,
 - Create Extra section page,
 - Create footer page,
@@ -18,3 +13,10 @@
 - private route,
 - Admin private routes,
 - Create a 404 page, etc.
+
+# Used packages/ technology
+
+#FrontEnd - react
+#BackEnd - expressJs
+
+## LIVE LINK: https://summer-camp-eac1c.web.app
