@@ -9,7 +9,6 @@ import AddClass from "../page/DashBoardPage/AddClass";
 import MyClasses from "../page/DashBoardPage/MyClasses";
 import ManageClasses from "../page/DashBoardPage/ManageClasses";
 import Instructors from "../page/Instructors/Instructors";
-import AddInstructor from "../page/DashBoardPage/AddInstructor";
 import Classes from "../page/Classes/Classes";
 import MySelectedCourse from "../page/DashBoardPage/MySelectedCourse";
 import Payment from "../page/DashBoardPage/Payment";
@@ -18,6 +17,7 @@ import InstructorRoutes from "./InstructorRoutes";
 import ManageUsers from "../page/DashBoardPage/ManageUsers";
 import Error from "../page/Error/Error";
 import axios from "axios";
+import PaymentHistory from "../page/DashBoardPage/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,6 @@ const router = createBrowserRouter([
       {
         path: "instructors",
         element: <Instructors />,
-        loader: () => fetch("http://localhost:3001/all-instructors"),
       },
       {
         path: "classes",
@@ -92,14 +91,7 @@ const router = createBrowserRouter([
           </InstructorRoutes>
         ),
       },
-      {
-        path: "update-instructor",
-        element: (
-          <InstructorRoutes>
-            <AddInstructor />
-          </InstructorRoutes>
-        ),
-      },
+
       // user routes
       {
         path: "my-selected-course",
@@ -114,6 +106,10 @@ const router = createBrowserRouter([
               Authorization: `Bearer ${localStorage.getItem("sunnah-camp")}`,
             },
           }),
+      },
+      {
+        path: "payment/history",
+        element: <PaymentHistory />,
       },
     ],
   },

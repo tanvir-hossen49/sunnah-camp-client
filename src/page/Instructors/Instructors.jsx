@@ -1,10 +1,18 @@
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import useTitle from "../../Hook/useTitle";
+import axios from "axios";
 
 const Instructors = () => {
-  const instructors = useLoaderData();
   useTitle("Instructor");
+  const [instructors, setInstructors] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/all-instructors").then(res => {
+      setInstructors(res.data);
+    });
+  }, []);
+
   return (
     <div className="mx-8 my-10">
       <SectionTitle title="All instructor" />
@@ -28,15 +36,6 @@ const Instructors = () => {
                 </h2>
                 <p>
                   Email: <span className="lowercase">{instructor.email}</span>
-                </p>
-                <p>
-                  Classes:{" "}
-                  {instructor?.classes.map((givenClass, index) => (
-                    <span key={index} className="capitalize">
-                      {givenClass}
-                      {instructor.classes.length !== index + 1 && ","}{" "}
-                    </span>
-                  ))}
                 </p>
 
                 <button className="btn lg:w-1/2 w-full btn-primary">

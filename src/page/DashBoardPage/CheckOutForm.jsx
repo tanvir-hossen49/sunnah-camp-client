@@ -71,14 +71,19 @@ const CheckOutForm = ({ selectedCourse }) => {
         //saved payment info in db
         const paymentInfo = {
           courseId: selectedCourse.data._id,
+          className: selectedCourse.data.className,
+          image: selectedCourse.data.image,
+          price: selectedCourse.data.price,
+          email: user?.email,
           transactionId: paymentIntent.id,
           date: new Date(),
         };
         axiosSecure.post("/payment", paymentInfo).then(res => {
-          console.log(res);
           if (res.data.insertedId) {
             ShowToast("success", "payment successful");
             navigate("/dashboard/my-selected-course");
+
+            axiosSecure.delete(`/my-course/${selectedCourse.data._id}`);
           }
         });
       }

@@ -29,7 +29,7 @@ const SignUp = () => {
       const { user } = await createUser(email, password);
       await updateUserProfile(user, name, photoURL);
 
-      const savedUser = { name, email };
+      const savedUser = { name, email, image: photoURL };
 
       const response = await axios.post(
         "http://localhost:3001/users",

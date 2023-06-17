@@ -69,7 +69,7 @@ const MySelectedCourse = () => {
           </thead>
           <tbody>
             {selectedCourse?.map((myCourse, index) => {
-              const { _id, image, price, seat, courseName, courseId } =
+              const { _id, image, price, totalSeats, courseName, courseId } =
                 myCourse;
               return (
                 <tr key={_id}>
@@ -83,7 +83,7 @@ const MySelectedCourse = () => {
                   </td>
                   <td>{courseName}</td>
                   <td>${price}</td>
-                  <td>{seat}</td>
+                  <td>{totalSeats}</td>
                   <td>
                     <Link to={`/dashboard/payment/${courseId}`}>
                       <button className="btn btn-primary">Pay</button>

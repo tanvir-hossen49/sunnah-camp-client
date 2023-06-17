@@ -7,7 +7,6 @@ import {
   BookMarked,
   BookPlus,
   CircleDollarSign,
-  FileEdit,
   Home,
   UserCircle2,
   UserCog2,
@@ -76,12 +75,6 @@ const DashboardLayout = () => {
                     My Classes
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/dashboard/update-instructor">
-                    <FileEdit className="mr-2" />
-                    Update Info
-                  </NavLink>
-                </li>
               </>
             ) : (
               <>
@@ -98,7 +91,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/payment-history">
+                  <NavLink to="/dashboard/payment/history">
                     <CircleDollarSign className="mr-2" />
                     Payment History
                   </NavLink>

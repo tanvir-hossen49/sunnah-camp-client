@@ -4,7 +4,7 @@ import useRole from "../Hook/useRole";
 
 const InstructorRoutes = ({ children }) => {
   const { user, loading } = useAuth();
-  const [isAdmin, isLoading] = useRole();
+  const [role, isLoading] = useRole();
   const location = useLocation();
 
   if (loading || isLoading) {
@@ -15,9 +15,10 @@ const InstructorRoutes = ({ children }) => {
     );
   }
 
-  if (user && isAdmin === "instructor") {
+  if (user && role === "instructor") {
     return children;
   }
+
   return <Navigate to="/signin" state={{ from: location }} replace></Navigate>;
 };
 
