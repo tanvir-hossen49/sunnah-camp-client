@@ -18,6 +18,7 @@ import ManageUsers from "../page/DashBoardPage/ManageUsers";
 import Error from "../page/Error/Error";
 import axios from "axios";
 import PaymentHistory from "../page/DashBoardPage/PaymentHistory";
+import MyEnrolledClasses from "../page/DashBoardPage/MyEnrolledClasses";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,10 @@ const router = createBrowserRouter([
       {
         path: "payment/history",
         element: <PaymentHistory />,
+      },
+      {
+        path: "my-enrolled-classes",
+        element: <MyEnrolledClasses />,
       },
     ],
   },

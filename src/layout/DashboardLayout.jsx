@@ -85,7 +85,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/my-enrolled-class">
+                  <NavLink to="/dashboard/my-enrolled-classes">
                     <BookMarked className="mr-2" />
                     My Enrolled Classes
                   </NavLink>
