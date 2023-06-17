@@ -86,6 +86,7 @@ const Classes = () => {
                   disabled={
                     role === "admin" ||
                     role === "instructor" ||
+                    singleClass?.availableSeats === 0 ||
                     isSelected(singleClass._id)
                   }
                 >

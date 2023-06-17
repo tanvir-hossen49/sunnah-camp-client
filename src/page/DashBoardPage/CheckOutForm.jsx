@@ -21,7 +21,7 @@ const CheckOutForm = ({ selectedCourse }) => {
         setClientSecret(res.data.clientSecret);
       });
   }, [axiosSecure, selectedCourse.data.price]);
-
+  console.log(selectedCourse.data);
   const handleSubmit = async event => {
     // Block native form submission.
     event.preventDefault();
@@ -82,8 +82,6 @@ const CheckOutForm = ({ selectedCourse }) => {
           if (res.data.insertedId) {
             ShowToast("success", "payment successful");
             navigate("/dashboard/my-selected-course");
-
-            axiosSecure.delete(`/my-course/${selectedCourse.data._id}`);
           }
         });
       }
