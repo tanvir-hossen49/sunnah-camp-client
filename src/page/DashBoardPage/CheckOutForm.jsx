@@ -21,7 +21,6 @@ const CheckOutForm = ({ selectedCourse }) => {
         setClientSecret(res.data.clientSecret);
       });
   }, [axiosSecure, selectedCourse.data.price]);
-  console.log(selectedCourse.data);
   const handleSubmit = async event => {
     // Block native form submission.
     event.preventDefault();
