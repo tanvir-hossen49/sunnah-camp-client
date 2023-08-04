@@ -10,6 +10,7 @@ const Classes = () => {
   const classes = useLoaderData() || [];
   const [role, setRole] = useState("");
   const [selectedCourse, setSelectedCourse] = useState([]);
+  const [enrolledCourse, setEnrolledCourse] = useState([]);
   const { user } = useAuth();
   const [axiosSecure] = useAxiosSecure();
   const navigate = useNavigate();
@@ -62,6 +63,15 @@ const Classes = () => {
       })();
   }, [user, axiosSecure]);
 
+  useEffect(() => {
+    axiosSecure.get("/payment").then(res => {
+      const arr = res.data.map(ele => ele.courseId);
+      setEnrolledCourse(arr);
+    });
+  }, [axiosSecure]);
+
+
+
   return (
     <div className="my-8 mx-10">
       <SectionTitle title="All Classes" />
@@ -87,7 +97,8 @@ const Classes = () => {
                     role === "admin" ||
                     role === "instructor" ||
                     singleClass?.availableSeats === 0 ||
-                    isSelected(singleClass._id)
+                    isSelected(singleClass._id) ||
+                    enrolledCourse.includes(singleClass._id)
                   }
                 >
                   Select

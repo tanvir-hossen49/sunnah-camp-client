@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import router from "./Routes/router";
 import { RouterProvider } from "react-router-dom";
@@ -13,7 +13,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <Suspense
+          fallback={
+            <div className="border-4 border-t-4 border-t-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
+          }
+        >
+          <RouterProvider router={router} />
+        </Suspense>
       </QueryClientProvider>
       <ToastContainer />
     </React.StrictMode>

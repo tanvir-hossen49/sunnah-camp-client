@@ -53,9 +53,8 @@ const ManageUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async result => {
       if (result.isConfirmed) {
-        const { data } = await axiosSecure.patch(`/user/${email}?role=admin`);
+        await axiosSecure.patch(`/user/${email}?role=admin`);
         refetch();
-        console.log(data);
       }
     });
   };

@@ -1,24 +1,26 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import Home from "../page/Home/Home";
-import SignIn from "../page/SignIn/SignIn";
-import SignUp from "../page/SignUp/SignUp";
 import DashboardLayout from "../layout/DashboardLayout";
 import PrivateRoutes from "./PrivateRoutes";
-import AddClass from "../page/DashBoardPage/AddClass";
-import MyClasses from "../page/DashBoardPage/MyClasses";
-import ManageClasses from "../page/DashBoardPage/ManageClasses";
-import Instructors from "../page/Instructors/Instructors";
-import Classes from "../page/Classes/Classes";
-import MySelectedCourse from "../page/DashBoardPage/MySelectedCourse";
-import Payment from "../page/DashBoardPage/Payment";
 import AdminRoute from "./AdminRoutes";
 import InstructorRoutes from "./InstructorRoutes";
-import ManageUsers from "../page/DashBoardPage/ManageUsers";
-import Error from "../page/Error/Error";
 import axios from "axios";
-import PaymentHistory from "../page/DashBoardPage/PaymentHistory";
-import MyEnrolledClasses from "../page/DashBoardPage/MyEnrolledClasses";
+
+const Home = React.lazy(() => import("../page/Home/Home"));
+const SignIn = React.lazy(() => import("../page/SignIn/SignIn"));
+const SignUp = React.lazy(() => import("../page/SignUp/SignUp"));
+const Instructors = React.lazy(() => import("../page/Instructors/Instructors"));
+const Classes = React.lazy(() => import("../page/Classes/Classes"));
+const AddClass = React.lazy(() => import("../page/DashBoardPage/AddClass"));
+const MyClasses = React.lazy(() => import("../page/DashBoardPage/MyClasses"));
+const ManageClasses = React.lazy(() => import("../page/DashBoardPage/ManageClasses"));
+const ManageUsers = React.lazy(() => import("../page/DashBoardPage/ManageUsers"));
+const MySelectedCourse = React.lazy(() => import("../page/DashBoardPage/MySelectedCourse"));
+const Payment = React.lazy(() => import("../page/DashBoardPage/Payment"));
+const PaymentHistory = React.lazy(() => import("../page/DashBoardPage/PaymentHistory"));
+const MyEnrolledClasses = React.lazy(() => import("../page/DashBoardPage/MyEnrolledClasses"));
+const Error = React.lazy(() => import("../page/Error/Error"));
 
 const router = createBrowserRouter([
   {
@@ -45,7 +47,8 @@ const router = createBrowserRouter([
       {
         path: "classes",
         element: <Classes />,
-        loader: () => fetch("https://summer-camp-two.vercel.app/user/all-classes"),
+        loader: () =>
+          fetch("https://summer-camp-two.vercel.app/user/all-classes"),
       },
     ],
   },

@@ -19,7 +19,7 @@ const SocialLogin = () => {
           savedUser
         );
         const data = response.data;
-        console.log(data);
+ 
         if (data.insertedId) {
           ShowToast("success", "user profile updated");
           navigate("/");

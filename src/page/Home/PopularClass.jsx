@@ -5,10 +5,12 @@ import axios from "axios";
 const PopularClass = () => {
   const [classes, setClasses] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/popular-classes").then(res => {
-      setClasses(res.data);
-    });
-  });
+    axios
+      .get("https://summer-camp-two.vercel.app/popular-classes")
+      .then(res => {
+        setClasses(res.data);
+      });
+  }, []);
 
   return (
     <div className="my-8 mx-10">
