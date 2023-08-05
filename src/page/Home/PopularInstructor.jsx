@@ -8,7 +8,7 @@ const PopularInstructor = () => {
     axios.get("https://summer-camp-two.vercel.app/instructor").then(res => {
       setInstructors(res.data);
     });
-  });
+  }, []);
 
   return (
     <div className="my-8 mx-10">
