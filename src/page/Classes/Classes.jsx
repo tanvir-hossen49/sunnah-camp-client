@@ -5,6 +5,8 @@ import ShowToast from "../../utility/ShowToast";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
+import ClassCard from "./ClassCard";
+import Spinner from "../../components/Sinner";
 
 const Classes = () => {
   const classes = useLoaderData() || [];
@@ -14,6 +16,7 @@ const Classes = () => {
   const { user } = useAuth();
   const [axiosSecure] = useAxiosSecure();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   useTitle("Classes");
 
   const handleSelect = async (event, selectedCourse) => {
@@ -47,67 +50,65 @@ const Classes = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      if (user) {
-        const { data } = await axiosSecure.get(`/users/${user?.email}`);
-        setRole(data.role);
+    if (user) {
+      const fetchUserRole = async () => {
+        try {
+          const { data } = await axiosSecure.get(`/users/${user.email}`);
+          setRole(data.role);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      const fetchUserCourse = async () => {
+        try {
+          const { data } = await axiosSecure.get(`/my-course/${user.email}`);
+          setSelectedCourse(data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      Promise.all([fetchUserRole(), fetchUserCourse()]);
+    }
+  }, [user, axiosSecure]);
+
+  useEffect(() => {
+    const fetchEnrolledCourses = async () => {
+      try {
+        const res = await axiosSecure.get("/payment");
+        const arr = res.data.map(ele => ele.courseId);
+        setEnrolledCourse(arr);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-    })();
-  }, [user, axiosSecure]);
+    };
 
-  useEffect(() => {
-    if (user)
-      (async () => {
-        const { data } = await axiosSecure.get(`/my-course/${user?.email}`);
-        setSelectedCourse(data);
-      })();
-  }, [user, axiosSecure]);
-
-  useEffect(() => {
-    axiosSecure.get("/payment").then(res => {
-      const arr = res.data.map(ele => ele.courseId);
-      setEnrolledCourse(arr);
-    });
+    fetchEnrolledCourses();
   }, [axiosSecure]);
-
-
 
   return (
     <div className="my-8 mx-10">
       <SectionTitle title="All Classes" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {classes?.map(singleClass => (
-          <div key={singleClass._id} className="card card-side border">
-            <figure className=" w-1/3">
-              <img src={singleClass.image} alt="" className="w-full h-full" />
-            </figure>
-            <div className="card-body glass rounded-r-2xl p-5 w-2/3">
-              <h2 className="card-title">{singleClass.className}</h2>
-              <p>Instructor: {singleClass.instructorName}</p>
-              <div className="flex justify-between">
-                <p>Price: ${singleClass.price}</p>
-                <p>Seat: {singleClass.totalSeats}</p>
-              </div>
-              <div className="mt-2 text-right">
-                <button
-                  onClick={event => handleSelect(event, singleClass)}
-                  className="btn btn-primary md:w-1/2 w-full"
-                  disabled={
-                    role === "admin" ||
-                    role === "instructor" ||
-                    singleClass?.availableSeats === 0 ||
-                    isSelected(singleClass._id) ||
-                    enrolledCourse.includes(singleClass._id)
-                  }
-                >
-                  Select
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {classes?.map(singleClass => (
+            <ClassCard
+              key={singleClass._id}
+              singleClass={singleClass}
+              role={role}
+              handleSelect={handleSelect}
+              isSelected={isSelected}
+              enrolledCourse={enrolledCourse}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

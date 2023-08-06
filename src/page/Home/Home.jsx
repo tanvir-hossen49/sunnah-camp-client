@@ -3,6 +3,7 @@ import Slider from "./Slider";
 import StudentReview from "./StudentReview";
 import PopularInstructor from "./PopularInstructor";
 import PopularClass from "./PopularClass";
+import Faq from "./Faq";
 
 const Home = () => {
   useTitle("Home");
@@ -12,6 +13,7 @@ const Home = () => {
       <PopularClass />
       <PopularInstructor />
       <StudentReview />
+      <Faq />
     </div>
   );
 };

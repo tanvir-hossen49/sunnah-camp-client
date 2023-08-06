@@ -2,52 +2,44 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import useTitle from "../../Hook/useTitle";
 import axios from "axios";
+import InstructorCard from "./InstructorCard";
+import Spinner from "../../components/Sinner";
 
 const Instructors = () => {
   useTitle("Instructor");
   const [instructors, setInstructors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://summer-camp-two.vercel.app/all-instructors")
-      .then(res => {
-        setInstructors(res.data);
-      });
+    const fetchInstructors = async () => {
+      try {
+        const response = await axios.get(
+          "https://summer-camp-two.vercel.app/all-instructors"
+        );
+        setInstructors(response.data);
+      } catch (error) {
+        console.error("Error fetching instructors:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInstructors();
   }, []);
 
   return (
     <div className="mx-8 my-10">
       <SectionTitle title="All instructor" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {instructors?.map(instructor => {
-          return (
-            <div
-              key={instructor._id}
-              className="card text-center glass space-y-5 p-5"
-            >
-              <div className="avatar">
-                <div className="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img src={instructor?.image} />
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <h2 className="text-xl font-semibold capitalize">
-                  {instructor.instructorName}
-                </h2>
-                <p>
-                  Email: <span className="lowercase">{instructor.email}</span>
-                </p>
-
-                <button className="btn lg:w-1/2 w-full btn-primary">
-                  See more
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {instructors?.map(instructor => (
+            <InstructorCard key={instructor._id} instructor={instructor} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
