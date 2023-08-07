@@ -30,7 +30,7 @@ const Faq = () => {
   ];
 
   return (
-    <div className="mx-8 my-10">
+    <div className="md:mx-8 mx-5">
       <SectionTitle title="Frequently Asked Questions" />
       {questionsAnsAnswers?.map(singleItem => (
         <div key={singleItem.id} className="collapse collapse-plus border mt-3">
@@ -38,7 +38,7 @@ const Faq = () => {
           <div className="collapse-title text-xl font-medium">
             {singleItem.question}
           </div>
-          <div className="collapse-content ">
+          <div className="collapse-content">
             <p> {singleItem.answer}</p>
           </div>
         </div>

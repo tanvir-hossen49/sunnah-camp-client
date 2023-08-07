@@ -12,22 +12,27 @@ const StudentReview = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://summer-camp-two.vercel.app/reviews")
-      .then(data => setReviews(data.data));
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          "https://summer-camp-two.vercel.app/reviews"
+        );
+        setReviews(response.data);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
+    fetchReviews();
   }, []);
 
   return (
-    <section>
+    <section className="md:mx-8 mx-5">
       <SectionTitle title="what out student says" />
 
-      <Swiper
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper my-10"
-      >
+      <Swiper navigation={true} modules={[Navigation]} className="my-10">
         {reviews.map(review => (
-          <SwiperSlide key={review._id} className="px-12 space-y-6 ">
+          <SwiperSlide key={review._id} className="md:px-12  space-y-6 ">
             <div className="flex justify-center">
               <Rating
                 style={{ maxWidth: 180 }}
@@ -37,7 +42,7 @@ const StudentReview = () => {
               />
             </div>
 
-            <p className="mx-10">{review.review}</p>
+            <p className="md:mx-5 text-justify">{review.review}</p>
             <p className="text-center uppercase text-3xl font-semibold">
               {review.student_name}
             </p>

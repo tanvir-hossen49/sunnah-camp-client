@@ -15,12 +15,19 @@ const CheckOutForm = ({ selectedCourse }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", { price: selectedCourse.data.price })
-      .then(res => {
-        setClientSecret(res.data.clientSecret);
-      });
+    const createPaymentIntent = async () => {
+      try {
+        const response = await axiosSecure.post("/create-payment-intent", {
+          price: selectedCourse.data.price,
+        });
+        setClientSecret(response.data.clientSecret);
+      } catch (error) {
+        console.error("Error creating payment intent:", error);
+      }
+    };
+    createPaymentIntent();
   }, [axiosSecure, selectedCourse.data.price]);
+
   const handleSubmit = async event => {
     // Block native form submission.
     event.preventDefault();

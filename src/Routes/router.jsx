@@ -47,8 +47,6 @@ const router = createBrowserRouter([
       {
         path: "classes",
         element: <Classes />,
-        loader: () =>
-          fetch("https://summer-camp-two.vercel.app/user/all-classes"),
       },
     ],
   },

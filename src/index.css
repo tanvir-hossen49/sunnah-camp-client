@@ -61,14 +61,6 @@ nav {
 .active {
   color: hsl(213 31% 91%);
 }
-.mySwiper .swiper-button-next {
-  right: 35px;
-  left: auto;
-}
-.mySwiper .swiper-button-prev {
-  right: auto;
-  left: 30px;
-}
 button:disabled {
   border: 1px solid var(--foreground);
   color: var(--muted-foreground) !important;
@@ -107,4 +99,10 @@ nav .nav-item {
 }
 .StripeElement {
   @apply shadow-lg px-3 py-5;
+}
+@media screen and (max-width: 576px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
 }

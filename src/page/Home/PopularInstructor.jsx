@@ -6,7 +6,6 @@ import Spinner from "../../components/Sinner";
 const PopularInstructor = () => {
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchInstructors = async () => {
       try {
@@ -25,7 +24,7 @@ const PopularInstructor = () => {
   }, []);
 
   return (
-    <div className="my-8 mx-10">
+    <div className="my-8 md:mx-8 mx-5">
       <SectionTitle title="Popular Instructor" />
 
       {loading ? (
@@ -38,12 +37,15 @@ const PopularInstructor = () => {
                 <img
                   src={instructor.image}
                   alt=""
-                  className="w-full h-full hover:scale-110 hover:duration-200"
+                  className="w-full h-full hover:scale-110 duration-200"
                 />
               </figure>
               <div className="card-body justify-center glass rounded-r-2xl p-5 w-8/12">
                 <h2 className="card-title">{instructor.name}</h2>
-                <p className="">{instructor.email}</p>
+                <p className="">Total Student: {instructor.student}</p>
+                <button className="btn mt-3 w-full btn-primary">
+                  See more
+                </button>
               </div>
             </div>
           ))}

@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle";
 import { useEffect, useState } from "react";
 import ShowToast from "../../utility/ShowToast";
@@ -7,9 +7,10 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
 import ClassCard from "./ClassCard";
 import Spinner from "../../components/Sinner";
+import axios from "axios";
 
 const Classes = () => {
-  const classes = useLoaderData() || [];
+  const [classes, setClasses] = useState([]);
   const [role, setRole] = useState("");
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [enrolledCourse, setEnrolledCourse] = useState([]);
@@ -17,6 +18,7 @@ const Classes = () => {
   const [axiosSecure] = useAxiosSecure();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+
   useTitle("Classes");
 
   const handleSelect = async (event, selectedCourse) => {
@@ -50,6 +52,23 @@ const Classes = () => {
   };
 
   useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://summer-camp-two.vercel.app/user/all-classes"
+        );
+        setClasses(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserRole();
+  }, []);
+
+  useEffect(() => {
     if (user) {
       const fetchUserRole = async () => {
         try {
@@ -69,28 +88,24 @@ const Classes = () => {
         }
       };
 
-      Promise.all([fetchUserRole(), fetchUserCourse()]);
+      const fetchEnrolledCourses = async () => {
+        try {
+          const response = await axiosSecure.get("/payment");
+          const arr = response.data.map(ele => ele.courseId);
+          setEnrolledCourse(arr);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      Promise.all([fetchUserRole(), fetchUserCourse(), fetchEnrolledCourses()]);
     }
   }, [user, axiosSecure]);
 
-  useEffect(() => {
-    const fetchEnrolledCourses = async () => {
-      try {
-        const res = await axiosSecure.get("/payment");
-        const arr = res.data.map(ele => ele.courseId);
-        setEnrolledCourse(arr);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEnrolledCourses();
-  }, [axiosSecure]);
-
   return (
-    <div className="my-8 mx-10">
+    <div className="my-8 mx-5 md:mx-8">
       <SectionTitle title="All Classes" />
 
       {loading ? (

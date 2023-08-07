@@ -8,14 +8,6 @@ const PopularClass = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://summer-camp-two.vercel.app/popular-classes")
-      .then(res => {
-        setClasses(res.data);
-      });
-  }, []);
-
-  useEffect(() => {
     const fetchClasses = async () => {
       try {
         const response = await axios.get(
@@ -33,25 +25,31 @@ const PopularClass = () => {
   }, []);
 
   return (
-    <div className="my-8 mx-10">
+    <div className="my-8 md:mx-8 mx-5">
       <SectionTitle title="Popular Class" />
-
       {loading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-x-3 gap-y-5">
           {classes?.map(instructor => (
-            <div key={instructor._id} className="card card-side border">
-              <figure className=" w-4/12  overflow-hidden">
+            <div key={instructor._id} className="card card-side border w-full">
+              <figure className=" w-1/3  overflow-hidden">
                 <img
                   src={instructor.image}
-                  alt=""
-                  className="w-full h-full hover:scale-110 hover:duration-200"
+                  alt={instructor.className}
+                  className="w-full h-full hover:scale-110 duration-200"
                 />
               </figure>
-              <div className="card-body justify-center glass rounded-r-2xl p-5 w-8/12">
+              <div className="card-body justify-center glass rounded-r-2xl p-5 w-2/3">
                 <h2 className="card-title">{instructor.className}</h2>
-                <p>{instructor.email}</p>
+                <p className="text-base">
+                  Price:{" "}
+                  <span className="font-medium">${instructor.price}</span>
+                </p>
+                <p className="text-base">
+                  Total Seats:
+                  <span className="font-medium"> {instructor.totalSeats}</span>
+                </p>
               </div>
             </div>
           ))}

@@ -28,7 +28,7 @@ const Instructors = () => {
   }, []);
 
   return (
-    <div className="mx-8 my-10">
+    <div className="mx-8 my-5">
       <SectionTitle title="All instructor" />
 
       {loading ? (

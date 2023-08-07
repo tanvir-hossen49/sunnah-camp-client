@@ -3,13 +3,19 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const MyEnrolledClasses = () => {
-  const [payment, SetPayment] = useState([]);
+  const [payment, setPayment] = useState([]);
   const [axiosSecure] = useAxiosSecure();
 
   useEffect(() => {
-    axiosSecure.get("/payment").then(res => {
-      SetPayment(res.data);
-    });
+    const fetchPaymentData = async () => {
+      try {
+        const response = await axiosSecure.get("/payment");
+        setPayment(response.data);
+      } catch (error) {
+        console.error("Error fetching payment data:", error);
+      }
+    };
+    fetchPaymentData();
   }, [axiosSecure]);
 
   return (

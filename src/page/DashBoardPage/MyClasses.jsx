@@ -12,9 +12,16 @@ const MyClasses = () => {
   const [axiosSecure] = useAxiosSecure();
 
   useEffect(() => {
-    axiosSecure(`/classes?email=${user?.email}`).then(response => {
-      setClasses(response.data);
-    });
+    const fetchClassesData = async () => {
+      try {
+        const response = await axiosSecure(`/classes?email=${user?.email}`);
+        setClasses(response.data);
+      } catch (error) {
+        console.error("Error fetching classes data:", error);
+      }
+    };
+
+    fetchClassesData();
   }, [user?.email, axiosSecure]);
 
   return (

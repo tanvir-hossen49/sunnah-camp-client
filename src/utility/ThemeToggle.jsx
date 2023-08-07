@@ -1,5 +1,4 @@
-import { Moon } from "lucide-react";
-import { SunMoon } from "lucide-react";
+import { Moon, SunMoon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
@@ -11,10 +10,11 @@ const ThemeToggle = () => {
 
   useEffect(() => {
     const body = document.body;
-
-    isDarkMode
-      ? body.classList.add("dark-mode")
-      : body.classList.remove("dark-mode");
+    if (isDarkMode) {
+      body.classList.add("dark-mode");
+    } else {
+      body.classList.remove("dark-mode");
+    }
   }, [isDarkMode]);
 
   return (
