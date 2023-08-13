@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
 import Spinner from "../../components/Sinner";
+import { Link } from "react-router-dom";
 
 const PopularInstructor = () => {
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchInstructors = async () => {
       try {
@@ -43,9 +45,12 @@ const PopularInstructor = () => {
               <div className="card-body justify-center glass rounded-r-2xl p-5 w-8/12">
                 <h2 className="card-title">{instructor.name}</h2>
                 <p className="">Total Student: {instructor.student}</p>
-                <button className="btn mt-3 w-full btn-primary">
-                  See more
-                </button>
+
+                <Link to={`/profile/${instructor.email}`}>
+                  <button className="btn mt-3 w-full btn-primary">
+                    See more
+                  </button>
+                </Link>
               </div>
             </div>
           ))}

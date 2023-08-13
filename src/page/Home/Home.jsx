@@ -5,6 +5,7 @@ import PopularInstructor from "./PopularInstructor";
 import PopularClass from "./PopularClass";
 import Faq from "./Faq";
 import AboutUs from "./AboutUs";
+import OurServices from "./OurServices";
 
 const Home = () => {
   useTitle("Home");
@@ -13,6 +14,7 @@ const Home = () => {
       <Slider />
       <PopularClass />
       <PopularInstructor />
+      <OurServices />
       <StudentReview />
       <Faq />
       <AboutUs />

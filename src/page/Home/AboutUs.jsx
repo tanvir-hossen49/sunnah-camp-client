@@ -20,20 +20,20 @@ const AboutUs = () => {
           </p>
 
           <div className="flex justify-between items-center mt-5">
-            <div className="">
-              <h4 className="hover:text-white hover:bg-black duration-200 mx-auto md:text-2xl text-xl font-bold border-2 border-gray-500 md:w-24 md:h-24 w-16 h-16 rounded-full flex justify-center items-center">
+            <div>
+              <h4 className=" hover:bg-yellow-300 duration-200 mx-auto md:text-2xl text-xl font-bold border-2 border-gray-500 md:w-24 md:h-24 w-16 h-16 rounded-full flex justify-center items-center">
                 10+
               </h4>
-              <p className="text-center  mt-3 text-xl ">Course</p>
+              <p className="text-center  mt-3 text-xl ">Courses</p>
             </div>
-            <div className="">
-              <h4 className="hover:text-white hover:bg-black duration-200 mx-auto md:text-2xl text-xl font-bold border-2 border-gray-500 md:w-24 md:h-24 w-16 h-16 rounded-full flex justify-center items-center">
+            <div>
+              <h4 className=" hover:bg-yellow-300 duration-200 mx-auto md:text-2xl text-xl font-bold border-2 border-gray-500 md:w-24 md:h-24 w-16 h-16 rounded-full flex justify-center items-center">
                 15+
               </h4>
               <p className="text-center  mt-3 text-xl ">Instructors</p>
             </div>
-            <div className="">
-              <h4 className="hover:text-white hover:bg-black duration-200 mx-auto md:text-2xl text-xl font-bold border-2 border-gray-500 md:w-24 md:h-24 w-16 h-16 rounded-full flex justify-center items-center">
+            <div>
+              <h4 className=" hover:bg-yellow-300 duration-200 mx-auto md:text-2xl text-xl font-bold border-2 border-gray-500 md:w-24 md:h-24 w-16 h-16 rounded-full flex justify-center items-center">
                 100+
               </h4>
               <p className="text-center  mt-3 text-xl ">Students</p>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const InstructorCard = ({ instructor }) => {
   return (
     <div className="card text-center glass space-y-5 p-5">
@@ -15,7 +16,9 @@ const InstructorCard = ({ instructor }) => {
           Email: <span className="lowercase">{instructor.email}</span>
         </p>
 
-        <button className="btn lg:w-1/2 w-full btn-primary">See more</button>
+        <Link to={`/profile/${instructor.email}`}>
+          <button className="btn mt-3 w-full btn-primary">See more</button>
+        </Link>
       </div>
     </div>
   );

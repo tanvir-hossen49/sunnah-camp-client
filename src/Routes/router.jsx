@@ -1,4 +1,4 @@
-import React from "react";
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import DashboardLayout from "../layout/DashboardLayout";
@@ -7,20 +7,27 @@ import AdminRoute from "./AdminRoutes";
 import InstructorRoutes from "./InstructorRoutes";
 import axios from "axios";
 
-const Home = React.lazy(() => import("../page/Home/Home"));
-const SignIn = React.lazy(() => import("../page/SignIn/SignIn"));
-const SignUp = React.lazy(() => import("../page/SignUp/SignUp"));
-const Instructors = React.lazy(() => import("../page/Instructors/Instructors"));
-const Classes = React.lazy(() => import("../page/Classes/Classes"));
-const AddClass = React.lazy(() => import("../page/DashBoardPage/AddClass"));
-const MyClasses = React.lazy(() => import("../page/DashBoardPage/MyClasses"));
-const ManageClasses = React.lazy(() => import("../page/DashBoardPage/ManageClasses"));
-const ManageUsers = React.lazy(() => import("../page/DashBoardPage/ManageUsers"));
-const MySelectedCourse = React.lazy(() => import("../page/DashBoardPage/MySelectedCourse"));
-const Payment = React.lazy(() => import("../page/DashBoardPage/Payment"));
-const PaymentHistory = React.lazy(() => import("../page/DashBoardPage/PaymentHistory"));
-const MyEnrolledClasses = React.lazy(() => import("../page/DashBoardPage/MyEnrolledClasses"));
-const Error = React.lazy(() => import("../page/Error/Error"));
+const Home = lazy(() => import("../page/Home/Home"));
+const SignIn = lazy(() => import("../page/SignIn/SignIn"));
+const SignUp = lazy(() => import("../page/SignUp/SignUp"));
+const Instructors = lazy(() => import("../page/Instructors/Instructors"));
+const Classes = lazy(() => import("../page/Classes/Classes"));
+const Profile = lazy(() => import("../page/Profile/Profile"));
+const AddClass = lazy(() => import("../page/DashBoardPage/AddClass"));
+const MyClasses = lazy(() => import("../page/DashBoardPage/MyClasses"));
+const ManageClasses = lazy(() => import("../page/DashBoardPage/ManageClasses"));
+const ManageUsers = lazy(() => import("../page/DashBoardPage/ManageUsers"));
+const MySelectedCourse = lazy(() =>
+  import("../page/DashBoardPage/MySelectedCourse")
+);
+const Payment = lazy(() => import("../page/DashBoardPage/Payment"));
+const PaymentHistory = lazy(() =>
+  import("../page/DashBoardPage/PaymentHistory")
+);
+const MyEnrolledClasses = lazy(() =>
+  import("../page/DashBoardPage/MyEnrolledClasses")
+);
+const Error = lazy(() => import("../page/Error/Error"));
 
 const router = createBrowserRouter([
   {
@@ -47,6 +54,23 @@ const router = createBrowserRouter([
       {
         path: "classes",
         element: <Classes />,
+      },
+      {
+        path: "profile/:email",
+        element: (
+          <PrivateRoutes>
+            <Profile />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          axios.get(
+            `https://summer-camp-two.vercel.app/users/instructor/${params.email}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("sunnah-camp")}`,
+              },
+            }
+          ),
       },
     ],
   },
