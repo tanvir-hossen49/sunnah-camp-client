@@ -6,8 +6,8 @@ import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
 import ClassCard from "./ClassCard";
-import Spinner from "../../components/Spinner";
 import axios from "axios";
+import CardSkeleton from "../../components/cardSkeleton";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
@@ -109,7 +109,9 @@ const Classes = () => {
       <SectionTitle title="All Classes" />
 
       {loading ? (
-        <Spinner />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <CardSkeleton cardCount={6} lineCount={4} />
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {classes?.map(singleClass => (

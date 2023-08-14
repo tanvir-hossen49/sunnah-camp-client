@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
-import Spinner from "../../components/Spinner";
 import { Link } from "react-router-dom";
+import CardSkeleton from "../../components/cardSkeleton";
 
 const PopularInstructor = () => {
   const [instructors, setInstructors] = useState([]);
@@ -30,7 +30,7 @@ const PopularInstructor = () => {
       <SectionTitle title="Popular Instructor" />
 
       {loading ? (
-        <Spinner />
+        <CardSkeleton cardCount={6} lineCount={3} />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {instructors?.map(instructor => (

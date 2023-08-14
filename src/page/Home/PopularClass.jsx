@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
-import Spinner from "../../components/Spinner";
+import CardSkeleton from "../../components/cardSkeleton";
 
 const PopularClass = () => {
   const [classes, setClasses] = useState([]);
@@ -28,7 +28,7 @@ const PopularClass = () => {
     <div className="my-8 md:mx-8 mx-5">
       <SectionTitle title="Popular Class" />
       {loading ? (
-        <Spinner />
+        <CardSkeleton cardCount={6} lineCount={3} />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-x-3 gap-y-5">
           {classes?.map(instructor => (

@@ -49,7 +49,7 @@ const ManageClasses = () => {
   };
 
   return (
-    <div className="w-full p-8">
+    <div className="w-full p-4">
       <SectionTitle title="Manage Classes" />
 
       <div className="overflow-x-auto">
