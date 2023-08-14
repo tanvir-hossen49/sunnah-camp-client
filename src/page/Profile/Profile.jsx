@@ -3,7 +3,7 @@ import img from "../../assets/banner/coverphoto.png";
 import SectionTitle from "../../components/SectionTitle";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import Spinner from "../../components/Spinner";
+import CardSkeleton from "../../components/cardSkeleton";
 
 const Profile = () => {
   const [instructor, setInstructor] = useState([]);
@@ -64,7 +64,7 @@ const Profile = () => {
         <SectionTitle title="Classes" />
 
         {loading ? (
-          <Spinner />
+          <CardSkeleton cardCount={3} lineCount={4} />
         ) : (
           <div className="grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-x-3 gap-y-5">
             {classes?.map(instructorClass => (
