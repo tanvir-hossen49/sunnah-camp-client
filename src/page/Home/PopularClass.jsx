@@ -2,30 +2,36 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
 import CardSkeleton from "../../components/cardSkeleton";
+import { useInView } from "react-intersection-observer";
 
 const PopularClass = () => {
+  const [ref, inView] = useInView();
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [apiCalled, setApiCalled] = useState(false);
 
   useEffect(() => {
-    const fetchClasses = async () => {
-      try {
-        const response = await axios.get(
-          "https://summer-camp-two.vercel.app/popular-classes"
-        );
-        setClasses(response.data);
-      } catch (error) {
-        console.error("Error fetching classes:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (inView && !apiCalled) {
+      const fetchClasses = async () => {
+        try {
+          const response = await axios.get(
+            "https://summer-camp-two.vercel.app/popular-classes"
+          );
+          setClasses(response.data);
+          setApiCalled(true);
+        } catch (error) {
+          console.error("Error fetching classes:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchClasses();
-  }, []);
+      fetchClasses();
+    }
+  }, [inView, apiCalled]);
 
   return (
-    <div className="my-8 md:mx-8 mx-5">
+    <div className="my-8 md:mx-8 mx-5" ref={ref}>
       <SectionTitle title="Popular Class" />
       {loading ? (
         <CardSkeleton cardCount={6} lineCount={3} />

@@ -3,30 +3,36 @@ import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import CardSkeleton from "../../components/cardSkeleton";
+import { useInView } from "react-intersection-observer";
 
 const PopularInstructor = () => {
+  const [ref, inView] = useInView();
+  const [apiCalled, setApiCalled] = useState(false);
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchInstructors = async () => {
-      try {
-        const response = await axios.get(
-          "https://summer-camp-two.vercel.app/instructor"
-        );
-        setInstructors(response.data);
-      } catch (error) {
-        console.error("Error fetching instructors:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (inView && !apiCalled) {
+      const fetchInstructors = async () => {
+        try {
+          const response = await axios.get(
+            "https://summer-camp-two.vercel.app/instructor"
+          );
+          setInstructors(response.data);
+          setApiCalled(true);
+        } catch (error) {
+          console.error("Error fetching instructors:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchInstructors();
-  }, []);
+      fetchInstructors();
+    }
+  }, [inView, apiCalled]);
 
   return (
-    <div className="my-8 md:mx-8 mx-5">
+    <div className="my-8 md:mx-8 mx-5" ref={ref}>
       <SectionTitle title="Popular Instructor" />
 
       {loading ? (

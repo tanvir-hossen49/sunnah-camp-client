@@ -109,9 +109,7 @@ const Classes = () => {
       <SectionTitle title="All Classes" />
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <CardSkeleton cardCount={6} lineCount={4} />
-        </div>
+        <CardSkeleton cardCount={6} lineCount={4} />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {classes?.map(singleClass => (
