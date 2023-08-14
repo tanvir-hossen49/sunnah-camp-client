@@ -3,7 +3,7 @@ import SectionTitle from "../../components/SectionTitle";
 import useTitle from "../../Hook/useTitle";
 import axios from "axios";
 import InstructorCard from "./InstructorCard";
-import Spinner from "../../components/Sinner";
+import Spinner from "../../components/Spinner";
 
 const Instructors = () => {
   useTitle("Instructor");

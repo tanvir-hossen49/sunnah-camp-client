@@ -62,15 +62,6 @@ const router = createBrowserRouter([
             <Profile />
           </PrivateRoutes>
         ),
-        loader: ({ params }) =>
-          axios.get(
-            `https://summer-camp-two.vercel.app/users/instructor/${params.email}`,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("sunnah-camp")}`,
-              },
-            }
-          ),
       },
     ],
   },

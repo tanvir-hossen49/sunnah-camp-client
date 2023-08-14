@@ -6,7 +6,7 @@ import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
 import ClassCard from "./ClassCard";
-import Spinner from "../../components/Sinner";
+import Spinner from "../../components/Spinner";
 import axios from "axios";
 
 const Classes = () => {

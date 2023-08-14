@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
-import Spinner from "../../components/Sinner";
+import Spinner from "../../components/Spinner";
 
 const PopularClass = () => {
   const [classes, setClasses] = useState([]);

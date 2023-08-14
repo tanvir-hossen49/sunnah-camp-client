@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import useTitle from "../../Hook/useTitle";
 import crying from "../../assets/giphy.gif";
+
 const Error = () => {
   useTitle("404 Error");
+
+
   return (
     <div className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500  w-full h-screen flex justify-center flex-col items-center">
       <div className="text-8xl  font-bold flex items-center">
