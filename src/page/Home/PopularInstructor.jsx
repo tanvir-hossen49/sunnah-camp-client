@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import CardSkeleton from "../../components/cardSkeleton";
 import { useInView } from "react-intersection-observer";
+import Spinner from "../../components/Spinner";
 
 const PopularInstructor = () => {
   const [ref, inView] = useInView();
@@ -36,7 +36,7 @@ const PopularInstructor = () => {
       <SectionTitle title="Popular Instructor" />
 
       {loading ? (
-        <CardSkeleton cardCount={6} lineCount={3} />
+        <Spinner />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {instructors?.map(instructor => (
