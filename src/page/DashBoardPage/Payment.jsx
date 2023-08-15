@@ -6,9 +6,11 @@ import { useLoaderData } from "react-router-dom";
 
 const Payment = () => {
   const selectedCourse = useLoaderData();
+  console.log(selectedCourse);
   const stripePromise = loadStripe(
     `${import.meta.env.VITE_Payment_Gateway_Key}`
   );
+
   return (
     <div className="p-8 mt-20">
       <SectionTitle title="payment" />

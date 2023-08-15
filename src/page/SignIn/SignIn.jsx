@@ -7,9 +7,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useAuth from "../../Hook/useAuth";
 import useTitle from "../../Hook/useTitle";
+import { ShowFirebaseError } from "../../utility/ShowFirebaseError";
 
 const SignIn = () => {
   useTitle("Sign In");
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const [isShow, setIsShow] = useState(false);
   const { signin } = useAuth();
@@ -19,13 +21,15 @@ const SignIn = () => {
 
   const onSubmit = async data => {
     const { email, password } = data;
-
+    setLoading(true);
     try {
       await signin(email, password);
       navigate(from, { replace: true });
       ShowToast("success", "login successful");
     } catch (error) {
-      console.log(error);
+      ShowFirebaseError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,7 +106,8 @@ const SignIn = () => {
                   type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md border px-3.5 py-2.5 font-semibold leading-7"
                 >
-                  Get started <ArrowRight className="ml-2" size={16} />
+                  {loading ? "Processing" : "Get started"}
+                  <ArrowRight className="ml-2" size={16} />
                 </button>
               </div>
             </div>

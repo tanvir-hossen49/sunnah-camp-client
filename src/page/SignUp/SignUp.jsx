@@ -11,6 +11,8 @@ import { ShowFirebaseError } from "../../utility/ShowFirebaseError";
 
 const SignUp = () => {
   useTitle("Sing Up");
+
+  const [loading, setLoading] = useState(false);
   const [isShow, setIsShow] = useState(false);
   const [isShowConfirmPassword, setIShowConfirmPassword] = useState(false);
   const { register, handleSubmit, reset } = useForm();
@@ -19,9 +21,11 @@ const SignUp = () => {
 
   const onSubmit = async data => {
     const { email, password, confirmPassword, photoURL, name } = data;
+    setLoading(true);
 
     if (password !== confirmPassword) {
       ShowToast("error", "password not match");
+      setLoading(false);
       return;
     }
 
@@ -44,6 +48,8 @@ const SignUp = () => {
       }
     } catch (error) {
       ShowFirebaseError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -176,7 +182,8 @@ const SignUp = () => {
                   type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md border px-3.5 py-2.5 font-semibold leading-7"
                 >
-                  Sign Up <ArrowRight className="ml-2" size={16} />
+                  {loading ? "Processing" : "Sign Up"}{" "}
+                  <ArrowRight className="ml-2" size={16} />
                 </button>
               </div>
             </div>

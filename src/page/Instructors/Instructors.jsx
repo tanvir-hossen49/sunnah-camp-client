@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import useTitle from "../../Hook/useTitle";
 import axios from "axios";
-import InstructorCard from "./InstructorCard";
 import CardSkeleton from "../../components/cardSkeleton";
+import InstructorCard from "../../components/InstructorCard";
 
 const Instructors = () => {
   useTitle("Instructor");

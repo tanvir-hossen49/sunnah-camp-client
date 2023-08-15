@@ -28,6 +28,7 @@ const ClassCard = ({
           <p>Price: ${singleClass.price}</p>
           <p>Seat: {singleClass.totalSeats}</p>
         </div>
+        <p>total Enrolled: {singleClass.availableSeats}</p>
         <div className="mt-2 text-right">
           <button
             onClick={event => handleSelect(event, singleClass)}

@@ -5,9 +5,9 @@ import ShowToast from "../../utility/ShowToast";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
-import ClassCard from "./ClassCard";
 import axios from "axios";
 import CardSkeleton from "../../components/cardSkeleton";
+import ClassCard from "./ClassCard";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);

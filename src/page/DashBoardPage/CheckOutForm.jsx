@@ -4,6 +4,7 @@ import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import ShowToast from "../../utility/ShowToast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CheckOutForm = ({ selectedCourse }) => {
   const { user } = useAuth();
@@ -90,6 +91,19 @@ const CheckOutForm = ({ selectedCourse }) => {
             navigate("/dashboard/my-selected-course");
           }
         });
+
+        // update total enrolled student and available class
+        try {
+          const response = await axios.patch(
+            `https://summer-camp-two.vercel.app/class/${selectedCourse.data._id}`
+          );
+          console.log(response.data); // Output the response data
+        } catch (error) {
+          console.error(error);
+        }
+
+        // deleted enrolled class from selected Course
+        
       }
     }
   };
