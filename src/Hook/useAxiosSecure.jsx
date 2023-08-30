@@ -10,7 +10,7 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     axiosSecure.interceptors.request.use(config => {
       const token = localStorage.getItem("sunnah-camp");

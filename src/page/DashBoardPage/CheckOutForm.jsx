@@ -6,7 +6,7 @@ import ShowToast from "../../utility/ShowToast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const CheckOutForm = ({ selectedCourse }) => {
+const CheckOutForm = ({ selectedCourse, selectedCourseId }) => {
   const { user } = useAuth();
   const [axiosSecure] = useAxiosSecure();
   const stripe = useStripe();
@@ -85,12 +85,26 @@ const CheckOutForm = ({ selectedCourse }) => {
           transactionId: paymentIntent.id,
           date: new Date(),
         };
+
         axiosSecure.post("/payment", paymentInfo).then(res => {
           if (res.data.insertedId) {
             ShowToast("success", "payment successful");
             navigate("/dashboard/my-selected-course");
           }
         });
+
+        // deleted enrolled class from selected Course
+        try {
+          const { data } = await axiosSecure.delete(
+            `/my-course/${selectedCourseId}`
+          );
+
+          if (data.deletedCount > 0) {
+            console.log("course delete");
+          }
+        } catch (error) {
+          console.log(error);
+        }
 
         // update total enrolled student and available class
         try {
@@ -101,9 +115,6 @@ const CheckOutForm = ({ selectedCourse }) => {
         } catch (error) {
           console.error(error);
         }
-
-        // deleted enrolled class from selected Course
-        
       }
     }
   };

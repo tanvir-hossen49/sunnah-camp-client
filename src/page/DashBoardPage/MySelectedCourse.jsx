@@ -15,8 +15,13 @@ const GetSelectedCourse = () => {
     queryKey: ["selectedCourse", user?.email],
     enabled: !loading,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/my-course/${user?.email}`);
-      return res.data;
+      try {
+        const { data } = await axiosSecure.get(`/my-course/email/${user?.email}`);
+        console.log(data);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -25,8 +30,10 @@ const GetSelectedCourse = () => {
 
 const MySelectedCourse = () => {
   useTitle("Selected Classes");
-  const [selectedCourse, refetch] = GetSelectedCourse();
+
   const [axiosSecure] = useAxiosSecure();
+  const [selectedCourse, refetch] = GetSelectedCourse();
+  console.log(selectedCourse);
 
   const handleDelete = id => {
     Swal.fire({

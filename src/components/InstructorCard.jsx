@@ -5,7 +5,7 @@ const InstructorCard = ({ instructor }) => {
       <figure className=" w-4/12  overflow-hidden">
         <img
           src={instructor.image}
-          alt=""
+          alt={instructor.image}
           className="w-full h-full hover:scale-110 duration-200"
         />
       </figure>
@@ -14,7 +14,7 @@ const InstructorCard = ({ instructor }) => {
         <p className="">Total Student: {instructor.student}</p>
 
         <Link to={`/profile/${instructor.email}`}>
-          <button className="btn mt-3 w-full btn-primary">See more</button>
+          <button className="btn mt-3 w-full btn-primary">View Profile</button>
         </Link>
       </div>
     </div>

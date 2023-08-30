@@ -53,8 +53,11 @@ const PopularClass = () => {
                   <span className="font-medium">${instructor.price}</span>
                 </p>
                 <p className="text-base">
-                  Total Seats:
-                  <span className="font-medium"> {instructor.totalSeats}</span>
+                  Available Seats:
+                  <span className="font-medium">
+                    {" "}
+                    {instructor.availableSeats}
+                  </span>
                 </p>
               </div>
             </div>

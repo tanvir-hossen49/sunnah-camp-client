@@ -6,8 +6,8 @@ import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useTitle from "../../Hook/useTitle";
 import axios from "axios";
-import CardSkeleton from "../../components/cardSkeleton";
 import ClassCard from "./ClassCard";
+import ClassCardSkeleton from "../../components/ClassCardSkeleton";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
@@ -81,7 +81,9 @@ const Classes = () => {
 
       const fetchUserCourse = async () => {
         try {
-          const { data } = await axiosSecure.get(`/my-course/${user.email}`);
+          const { data } = await axiosSecure.get(
+            `/my-course/email/${user.email}`
+          );
           setSelectedCourse(data);
         } catch (error) {
           console.log(error);
@@ -109,7 +111,7 @@ const Classes = () => {
       <SectionTitle title="All Classes" />
 
       {loading ? (
-        <CardSkeleton cardCount={6} lineCount={4} />
+        <ClassCardSkeleton cardCount={6} />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {classes?.map(singleClass => (

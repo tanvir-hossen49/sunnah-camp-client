@@ -43,6 +43,19 @@ const SignUp = () => {
 
       if (data.insertedId) {
         reset();
+
+        // const studentInfo = await axios.post(
+        //   "https://summer-camp-two.vercel.app/users/student",
+        //   {
+        //     user: data.insertedId,
+        //     following: [],
+        //     selectedClasses: [],
+        //     enrolledClasses: [],
+        //   }
+        // );
+
+        console.log(studentInfo);
+
         ShowToast("success", "user profile updated");
         navigate("/");
       }
