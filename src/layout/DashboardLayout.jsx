@@ -16,6 +16,7 @@ import { Users } from "lucide-react";
 
 const DashboardLayout = () => {
   useTitle("Dashboard");
+  
   const { user } = useAuth();
   const [role] = useRole();
 

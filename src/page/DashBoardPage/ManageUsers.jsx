@@ -31,7 +31,7 @@ const ManageUsers = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes",
     }).then(async result => {
       if (result.isConfirmed) {
         const { data } = await axiosSecure.patch(
@@ -45,12 +45,12 @@ const ManageUsers = () => {
   const handleAdmin = email => {
     Swal.fire({
       title: "Are you sure?",
-      text: " you want to make it an Admin?",
+      text: "you want to make it an Admin?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes",
     }).then(async result => {
       if (result.isConfirmed) {
         await axiosSecure.patch(`/user/${email}?role=admin`);

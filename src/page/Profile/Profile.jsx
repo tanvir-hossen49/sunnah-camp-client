@@ -99,7 +99,7 @@ const Profile = () => {
           </div>
         )}
 
-        {classes.length === 0 && "NO classes available"}
+        {classes.length === 0 && "No classes available"}
       </div>
     </div>
   );

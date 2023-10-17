@@ -6,6 +6,7 @@ import PopularClass from "./PopularClass";
 import Faq from "./Faq";
 import AboutUs from "./AboutUs";
 import OurServices from "./OurServices";
+import HowToPray from "./HowToPray";
 
 const Home = () => {
   useTitle("Home");
@@ -15,6 +16,7 @@ const Home = () => {
       <PopularClass />
       <PopularInstructor />
       <OurServices />
+      <HowToPray />
       <StudentReview />
       <Faq />
       <AboutUs />
